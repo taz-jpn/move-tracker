@@ -53,6 +53,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
               subdomains: const ['a', 'b', 'c', 'd'],
               userAgentPackageName: 'com.example.move_tracker',
               maxZoom: 19,
+              retinaMode: RetinaMode.isHighDensity(context),
             ),
 
             // 軌跡ポリライン
