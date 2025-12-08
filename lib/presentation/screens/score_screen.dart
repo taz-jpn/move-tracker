@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/score_provider.dart';
+import '../widgets/score/score_card.dart';
+
+class ScoreScreen extends ConsumerWidget {
+  const ScoreScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scoreSummaryAsync = ref.watch(scoreSummaryProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('スコア'),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: scoreSummaryAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, size: 64, color: Colors.red),
+              const SizedBox(height: 16),
+              Text('エラー: $error'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => ref.refresh(scoreSummaryProvider),
+                child: const Text('再読み込み'),
+              ),
+            ],
+          ),
+        ),
+        data: (summary) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              ref.invalidate(scoreSummaryProvider);
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                  ScoreCard(
+                    totalScore: summary.totalScore,
+                    walkingScore: summary.walkingScore,
+                    walkingSeconds: summary.walkingSeconds,
+                    cyclingScore: summary.cyclingScore,
+                    cyclingSeconds: summary.cyclingSeconds,
+                    vehicleScore: summary.vehicleScore,
+                    vehicleSeconds: summary.vehicleSeconds,
+                  ),
+                  const SizedBox(height: 16),
+                  _buildScoreInfo(),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildScoreInfo() {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'スコアの計算方法',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildScoreRule('徒歩 (3-6 km/h)', '3.0x', Colors.green),
+            const SizedBox(height: 8),
+            _buildScoreRule('自転車 (7-29 km/h)', '2.0x', Colors.blue),
+            const SizedBox(height: 8),
+            _buildScoreRule('車・列車 (30+ km/h)', '1.0x', Colors.orange),
+            const SizedBox(height: 12),
+            Text(
+              'スコア = 移動時間(分) × 倍率',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScoreRule(String mode, String multiplier, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(mode),
+        ),
+        Text(
+          multiplier,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter --version:*)",
+      "Bash(export PATH=\"$PATH:/home/node/flutter-sdk/bin\")",
+      "Bash(flutter create:*)",
+      "Bash(flutter pub get:*)",
+      "Bash(flutter analyze:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
