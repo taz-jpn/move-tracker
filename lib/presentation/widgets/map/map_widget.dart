@@ -47,9 +47,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             },
           ),
           children: [
-            // OpenStreetMap タイル
+            // CartoDB Voyager タイル（シンプルで見やすい）
             TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+              subdomains: const ['a', 'b', 'c', 'd'],
               userAgentPackageName: 'com.example.move_tracker',
               maxZoom: 19,
             ),
