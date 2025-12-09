@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/score_provider.dart';
 import 'map_screen.dart';
 import 'score_screen.dart';
 import 'history_screen.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   int _currentIndex = 0;
 
   final _screens = const [
@@ -29,6 +31,15 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {
+          // タブ切り替え時にデータを最新化
+          if (index == 1) {
+            // スコア画面
+            ref.invalidate(scoreSummaryProvider);
+            ref.invalidate(earnedMedalTypesProvider);
+          } else if (index == 2) {
+            // 履歴画面
+            ref.invalidate(sessionHistoryProvider);
+          }
           setState(() => _currentIndex = index);
         },
         destinations: const [
