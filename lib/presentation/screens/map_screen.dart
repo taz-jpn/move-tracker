@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/dot_provider.dart';
 import '../providers/location_provider.dart';
 import '../providers/tracking_provider.dart';
 import '../widgets/map/map_widget.dart';
 import '../widgets/common/speed_indicator.dart';
 import '../widgets/common/tracking_controls.dart';
 
-class MapScreen extends ConsumerWidget {
+class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends ConsumerState<MapScreen> {
+  @override
+  Widget build(BuildContext context) {
     final permissionAsync = ref.watch(locationPermissionProvider);
     final trackingState = ref.watch(trackingProvider);
+
+    // 位置更新時にドット収集をチェック
+    ref.listen(currentLatLngProvider, (previous, next) {
+      if (next != null && trackingState.isTracking) {
+        ref.read(dotProvider.notifier).onPositionUpdate(
+          next,
+          trackingState.currentSpeed,
+        );
+      }
+    });
 
     return Scaffold(
       body: permissionAsync.when(
