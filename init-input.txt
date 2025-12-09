@@ -9,3 +9,21 @@
   - 移動した時間に応じてスコアを取得する
   - スコアは移動速度ごとに集計する（徒歩、自転車、車&列車）
   - 速度帯で分ける（3-6km/h, 7-29km/h, 30km/h over）
+
+
+localizeはすぐできそう。
+Mapはタイル変更で、種類を変更できる
+
+## lib/core/constants/gps_filter_config.dart の値を変更するだけで対応できます：
+  // 現在の設定
+  maxAccuracyMeters: 20.0        // 精度フィルタ
+  maxTimeGapSeconds: 5           // 時間ギャップ
+  maxAccelerationKmhPerSecond: 10.0  // 加速度制限
+  speedAverageWindowSize: 3      // 移動平均
+  distanceFilterMeters: 10       // 距離フィルタ
+  
+
+全体に少しゲーム性を持たせる仕様を追加したい
+- 軌跡のラインは、ジグザグで綺麗にでないので、無しがいいかも
+- 代わりに、パックマンのようなドット収集の仕組み（スコア＋できてもよさそう）
+- スコア達成メダルを集める的なやつ
