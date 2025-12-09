@@ -7,6 +7,8 @@ class SpeedIndicator extends StatelessWidget {
   final TransportMode mode;
   final double distance;
   final int duration;
+  final int dotCount;
+  final int dotScore;
 
   const SpeedIndicator({
     super.key,
@@ -14,6 +16,8 @@ class SpeedIndicator extends StatelessWidget {
     required this.mode,
     required this.distance,
     required this.duration,
+    this.dotCount = 0,
+    this.dotScore = 0,
   });
 
   @override
@@ -69,6 +73,19 @@ class SpeedIndicator extends StatelessWidget {
             label: '時間',
             value: Formatters.formatDuration(duration),
           ),
+          if (dotCount > 0) ...[
+            Container(
+              height: 40,
+              width: 1,
+              color: Colors.grey[300],
+            ),
+            _buildItem(
+              icon: Icons.circle,
+              label: 'ドット',
+              value: '$dotCount (+$dotScore)',
+              color: const Color(0xFFFFD700),
+            ),
+          ],
         ],
       ),
     );

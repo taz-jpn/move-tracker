@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import '../../providers/dot_provider.dart';
 import '../../providers/location_provider.dart';
+import '../../providers/tracking_provider.dart';
 
 class MapWidget extends ConsumerStatefulWidget {
   const MapWidget({super.key});
@@ -18,6 +20,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   @override
   Widget build(BuildContext context) {
     final currentPosition = ref.watch(currentLatLngProvider);
+    final trackingState = ref.watch(trackingProvider);
+    final dotState = ref.watch(dotProvider);
 
     // ユーザー追従
     if (_followUser && currentPosition != null) {
@@ -52,6 +56,32 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
               maxZoom: 19,
               retinaMode: RetinaMode.isHighDensity(context),
             ),
+
+            // ドットマーカー（トラッキング中のみ表示）
+            if (trackingState.isTracking && dotState.uncollectedDots.isNotEmpty)
+              MarkerLayer(
+                markers: dotState.uncollectedDots.map((dot) {
+                  return Marker(
+                    point: dot.position,
+                    width: dot.size + 8,
+                    height: dot.size + 8,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: dot.color,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: dot.color.withAlpha(128),
+                            blurRadius: 8,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
 
             // 現在地マーカー
             if (currentPosition != null)

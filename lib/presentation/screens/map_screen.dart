@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/dot_provider.dart';
 import '../providers/location_provider.dart';
 import '../providers/tracking_provider.dart';
 import '../widgets/map/map_widget.dart';
@@ -13,6 +14,17 @@ class MapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final permissionAsync = ref.watch(locationPermissionProvider);
     final trackingState = ref.watch(trackingProvider);
+    final dotState = ref.watch(dotProvider);
+
+    // 位置更新時にドット収集をチェック
+    ref.listen(currentLatLngProvider, (previous, next) {
+      if (next != null && trackingState.isTracking) {
+        ref.read(dotProvider.notifier).onPositionUpdate(
+          next,
+          trackingState.currentSpeed,
+        );
+      }
+    });
 
     return Scaffold(
       body: permissionAsync.when(
@@ -66,6 +78,8 @@ class MapScreen extends ConsumerWidget {
                     mode: trackingState.currentMode,
                     distance: trackingState.sessionDistance,
                     duration: trackingState.sessionDuration,
+                    dotCount: dotState.collectedCount,
+                    dotScore: dotState.totalScore,
                   ),
 
                 // トラッキングコントロール
