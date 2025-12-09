@@ -9,6 +9,7 @@ import '../../data/services/database_service.dart';
 import '../../data/services/location_service.dart';
 import '../../domain/entities/transport_mode.dart';
 import '../../core/utils/speed_calculator.dart';
+import '../../core/utils/speed_filter.dart';
 
 final databaseServiceProvider = Provider<DatabaseService>((ref) {
   return DatabaseService();
@@ -58,6 +59,7 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
   final DatabaseService _databaseService;
   final LocationService _locationService;
   final Uuid _uuid = const Uuid();
+  final SpeedFilter _speedFilter = SpeedFilter();
   StreamSubscription<Position>? _positionSubscription;
   Timer? _durationTimer;
   DateTime? _lastPointTime;
@@ -90,6 +92,11 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
     );
 
     await _databaseService.insertSession(session);
+
+    // フィルタをリセット
+    _speedFilter.reset();
+    _lastPointTime = null;
+
     state = state.copyWith(
       isTracking: true,
       currentSession: session,
@@ -120,11 +127,13 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
   Future<void> _onPositionUpdate(Position position) async {
     if (!state.isTracking || state.currentSession == null) return;
 
-    double speedKmh = 0;
+    final now = DateTime.now();
+    double rawSpeedKmh = 0;
     double addedDistance = 0;
 
+    // GPSから速度を取得
     if (position.speed >= 0) {
-      speedKmh = SpeedCalculator.msToKmh(position.speed);
+      rawSpeedKmh = SpeedCalculator.msToKmh(position.speed);
     }
 
     // 前回のポイントとの距離を計算
@@ -139,7 +148,7 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
 
       // 速度を距離と時間から再計算（GPSの速度が不正確な場合）
       if (_lastPointTime != null) {
-        final timeDiff = DateTime.now().difference(_lastPointTime!);
+        final timeDiff = now.difference(_lastPointTime!);
         if (timeDiff.inSeconds > 0) {
           final calculatedSpeed = SpeedCalculator.calculateSpeedKmh(
             lat1: lastPoint.latitude,
@@ -149,16 +158,29 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
             timeDiff: timeDiff,
           );
           // GPSの速度と計算速度の平均を取る
-          if (speedKmh > 0) {
-            speedKmh = (speedKmh + calculatedSpeed) / 2;
+          if (rawSpeedKmh > 0) {
+            rawSpeedKmh = (rawSpeedKmh + calculatedSpeed) / 2;
           } else {
-            speedKmh = calculatedSpeed;
+            rawSpeedKmh = calculatedSpeed;
           }
         }
       }
     }
 
-    _lastPointTime = DateTime.now();
+    // フィルタを適用して速度を取得
+    final filteredSpeed = _speedFilter.filterSpeed(
+      rawSpeed: rawSpeedKmh,
+      accuracy: position.accuracy,
+      currentTime: now,
+    );
+
+    // フィルタで除外された場合はこのポイントをスキップ
+    if (filteredSpeed == null) {
+      return;
+    }
+
+    final speedKmh = filteredSpeed;
+    _lastPointTime = now;
     final mode = TransportModeExtension.fromSpeed(speedKmh);
 
     final point = LocationPoint(

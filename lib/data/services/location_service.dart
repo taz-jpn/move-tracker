@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../core/constants/gps_filter_config.dart';
 
 class LocationService {
   /// 位置情報の権限をリクエスト
@@ -38,9 +39,9 @@ class LocationService {
   /// 位置情報のストリームを取得
   Stream<Position> getPositionStream() {
     return Geolocator.getPositionStream(
-      locationSettings: const LocationSettings(
+      locationSettings: LocationSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 5, // 5m移動で更新
+        distanceFilter: GpsFilterConfig.distanceFilterMeters,
       ),
     );
   }
