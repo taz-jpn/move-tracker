@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import '../../../domain/entities/transport_mode.dart';
 import '../../providers/location_provider.dart';
-import '../../providers/tracking_provider.dart';
 
 class MapWidget extends ConsumerStatefulWidget {
   const MapWidget({super.key});
@@ -20,7 +18,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   @override
   Widget build(BuildContext context) {
     final currentPosition = ref.watch(currentLatLngProvider);
-    final trackingState = ref.watch(trackingProvider);
 
     // ユーザー追従
     if (_followUser && currentPosition != null) {
@@ -55,12 +52,6 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
               maxZoom: 19,
               retinaMode: RetinaMode.isHighDensity(context),
             ),
-
-            // 軌跡ポリライン
-            if (trackingState.trackPoints.isNotEmpty)
-              PolylineLayer(
-                polylines: _buildColoredPolylines(trackingState),
-              ),
 
             // 現在地マーカー
             if (currentPosition != null)
@@ -111,53 +102,5 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         ),
       ],
     );
-  }
-
-  List<Polyline> _buildColoredPolylines(TrackingState state) {
-    if (state.trackPoints.isEmpty) return [];
-
-    final polylines = <Polyline>[];
-    var currentMode = state.trackPoints.first.mode;
-    var currentSegmentPoints = <LatLng>[
-      LatLng(state.trackPoints.first.latitude, state.trackPoints.first.longitude)
-    ];
-
-    for (int i = 1; i < state.trackPoints.length; i++) {
-      final point = state.trackPoints[i];
-      final latLng = LatLng(point.latitude, point.longitude);
-
-      if (point.mode == currentMode) {
-        currentSegmentPoints.add(latLng);
-      } else {
-        // セグメントを追加
-        if (currentSegmentPoints.length >= 2) {
-          polylines.add(Polyline(
-            points: List.from(currentSegmentPoints),
-            color: currentMode.color,
-            strokeWidth: 5,
-          ));
-        }
-        // 新しいセグメント開始
-        currentMode = point.mode;
-        currentSegmentPoints = [
-          LatLng(
-            state.trackPoints[i - 1].latitude,
-            state.trackPoints[i - 1].longitude,
-          ),
-          latLng
-        ];
-      }
-    }
-
-    // 最後のセグメントを追加
-    if (currentSegmentPoints.length >= 2) {
-      polylines.add(Polyline(
-        points: currentSegmentPoints,
-        color: currentMode.color,
-        strokeWidth: 5,
-      ));
-    }
-
-    return polylines;
   }
 }
