@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/models/medal.dart';
 import '../providers/score_provider.dart';
+import '../widgets/medal/medal_grid.dart';
 import '../widgets/score/score_card.dart';
 
 class ScoreScreen extends ConsumerWidget {
@@ -9,6 +11,7 @@ class ScoreScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scoreSummaryAsync = ref.watch(scoreSummaryProvider);
+    final earnedMedalsAsync = ref.watch(earnedMedalTypesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,9 +37,12 @@ class ScoreScreen extends ConsumerWidget {
           ),
         ),
         data: (summary) {
+          final earnedMedals = earnedMedalsAsync.valueOrNull ?? <MedalType>{};
+
           return RefreshIndicator(
             onRefresh: () async {
               ref.invalidate(scoreSummaryProvider);
+              ref.invalidate(earnedMedalTypesProvider);
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -52,7 +58,10 @@ class ScoreScreen extends ConsumerWidget {
                     vehicleSeconds: summary.vehicleSeconds,
                   ),
                   const SizedBox(height: 16),
+                  MedalGrid(earnedMedals: earnedMedals),
+                  const SizedBox(height: 16),
                   _buildScoreInfo(),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),

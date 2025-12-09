@@ -4,9 +4,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:uuid/uuid.dart';
 import '../../data/models/location_point.dart';
+import '../../data/models/medal.dart';
 import '../../data/models/track_session.dart';
 import '../../data/services/database_service.dart';
 import '../../data/services/location_service.dart';
+import '../../data/services/medal_service.dart';
 import '../../domain/entities/transport_mode.dart';
 import '../../core/utils/speed_calculator.dart';
 import '../../core/utils/speed_filter.dart';
@@ -23,6 +25,7 @@ class TrackingState {
   final TransportMode currentMode;
   final double sessionDistance;
   final int sessionDuration;
+  final List<MedalType> newlyEarnedMedals; // 今回獲得したメダル
 
   TrackingState({
     this.isTracking = false,
@@ -32,6 +35,7 @@ class TrackingState {
     this.currentMode = TransportMode.stationary,
     this.sessionDistance = 0,
     this.sessionDuration = 0,
+    this.newlyEarnedMedals = const [],
   });
 
   TrackingState copyWith({
@@ -42,6 +46,7 @@ class TrackingState {
     TransportMode? currentMode,
     double? sessionDistance,
     int? sessionDuration,
+    List<MedalType>? newlyEarnedMedals,
   }) {
     return TrackingState(
       isTracking: isTracking ?? this.isTracking,
@@ -51,6 +56,7 @@ class TrackingState {
       currentMode: currentMode ?? this.currentMode,
       sessionDistance: sessionDistance ?? this.sessionDistance,
       sessionDuration: sessionDuration ?? this.sessionDuration,
+      newlyEarnedMedals: newlyEarnedMedals ?? this.newlyEarnedMedals,
     );
   }
 }
@@ -277,9 +283,25 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
         lastUpdated: DateTime.now(),
       );
       await _databaseService.updateScoreSummary(newSummary);
+
+      // メダル判定
+      final medalService = MedalService(_databaseService);
+      final newMedals = await medalService.checkAndAwardMedals(
+        session: completedSession,
+        scoreSummary: newSummary,
+      );
+
+      if (newMedals.isNotEmpty) {
+        state = state.copyWith(newlyEarnedMedals: newMedals);
+      }
     }
 
     state = TrackingState();
+  }
+
+  /// 新しく獲得したメダルをクリア
+  void clearNewMedals() {
+    state = state.copyWith(newlyEarnedMedals: []);
   }
 
   @override

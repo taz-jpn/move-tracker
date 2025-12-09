@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 import '../models/location_point.dart';
 import '../models/track_session.dart';
 import '../models/score_summary.dart';
+import '../models/medal.dart';
 
 class DatabaseService {
   static Database? _database;
@@ -18,8 +19,9 @@ class DatabaseService {
 
     return openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -80,6 +82,25 @@ class DatabaseService {
       'vehicle_seconds': 0,
       'last_updated': DateTime.now().millisecondsSinceEpoch,
     });
+
+    // メダルテーブル
+    await _createMedalTable(db);
+  }
+
+  Future<void> _createMedalTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS user_medals (
+        id TEXT PRIMARY KEY,
+        medal_type INTEGER NOT NULL UNIQUE,
+        earned_at INTEGER NOT NULL
+      )
+    ''');
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await _createMedalTable(db);
+    }
   }
 
   // Track Sessions
@@ -161,5 +182,99 @@ class DatabaseService {
       {...summary.toMap(), 'id': 1},
       where: 'id = 1',
     );
+  }
+
+  // User Medals
+  Future<void> insertMedal(UserMedal medal) async {
+    final db = await database;
+    await db.insert(
+      'user_medals',
+      medal.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+  }
+
+  Future<List<UserMedal>> getAllMedals() async {
+    final db = await database;
+    final maps = await db.query(
+      'user_medals',
+      orderBy: 'earned_at DESC',
+    );
+    return maps.map((m) => UserMedal.fromMap(m)).toList();
+  }
+
+  Future<bool> hasMedal(MedalType type) async {
+    final db = await database;
+    final maps = await db.query(
+      'user_medals',
+      where: 'medal_type = ?',
+      whereArgs: [type.index],
+    );
+    return maps.isNotEmpty;
+  }
+
+  Future<Set<MedalType>> getEarnedMedalTypes() async {
+    final db = await database;
+    final maps = await db.query('user_medals');
+    return maps.map((m) => MedalType.values[m['medal_type'] as int]).toSet();
+  }
+
+  // 累計距離を計算（完了したセッションの合計）
+  Future<double> getTotalDistance() async {
+    final db = await database;
+    final result = await db.rawQuery('''
+      SELECT SUM(total_distance) as total
+      FROM track_sessions
+      WHERE status = ?
+    ''', [TrackStatus.completed.index]);
+    return (result.first['total'] as num?)?.toDouble() ?? 0;
+  }
+
+  // 連続記録日数を計算
+  Future<int> getCurrentStreak() async {
+    final db = await database;
+    final sessions = await db.query(
+      'track_sessions',
+      where: 'status = ?',
+      whereArgs: [TrackStatus.completed.index],
+      orderBy: 'start_time DESC',
+    );
+
+    if (sessions.isEmpty) return 0;
+
+    int streak = 0;
+    DateTime? lastDate;
+
+    for (final session in sessions) {
+      final sessionDate = DateTime.fromMillisecondsSinceEpoch(
+        session['start_time'] as int,
+      );
+      final dateOnly = DateTime(sessionDate.year, sessionDate.month, sessionDate.day);
+
+      if (lastDate == null) {
+        // 今日か昨日でなければストリークは0
+        final today = DateTime.now();
+        final todayOnly = DateTime(today.year, today.month, today.day);
+        final diff = todayOnly.difference(dateOnly).inDays;
+        if (diff > 1) return 0;
+        lastDate = dateOnly;
+        streak = 1;
+      } else {
+        final diff = lastDate.difference(dateOnly).inDays;
+        if (diff == 0) {
+          // 同じ日は無視
+          continue;
+        } else if (diff == 1) {
+          // 連続
+          streak++;
+          lastDate = dateOnly;
+        } else {
+          // 途切れた
+          break;
+        }
+      }
+    }
+
+    return streak;
   }
 }
