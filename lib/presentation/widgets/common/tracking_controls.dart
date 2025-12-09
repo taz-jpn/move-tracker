@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/dot_provider.dart';
-import '../../providers/location_provider.dart';
 import '../../providers/tracking_provider.dart';
 
 class TrackingControls extends ConsumerWidget {
@@ -30,11 +28,6 @@ class TrackingControls extends ConsumerWidget {
             ElevatedButton.icon(
               onPressed: () {
                 ref.read(trackingProvider.notifier).startSession();
-                // ドット初期化
-                final currentPosition = ref.read(currentLatLngProvider);
-                if (currentPosition != null) {
-                  ref.read(dotProvider.notifier).initializeDots(currentPosition);
-                }
               },
               icon: const Icon(Icons.play_arrow),
               label: const Text('記録開始'),
@@ -90,7 +83,6 @@ class TrackingControls extends ConsumerWidget {
           ElevatedButton(
             onPressed: () {
               ref.read(trackingProvider.notifier).stopSession();
-              ref.read(dotProvider.notifier).reset();
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
