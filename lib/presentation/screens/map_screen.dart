@@ -7,14 +7,22 @@ import '../widgets/map/map_widget.dart';
 import '../widgets/common/speed_indicator.dart';
 import '../widgets/common/tracking_controls.dart';
 
-class MapScreen extends ConsumerWidget {
+class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends ConsumerState<MapScreen> {
+  @override
+  Widget build(BuildContext context) {
     final permissionAsync = ref.watch(locationPermissionProvider);
     final trackingState = ref.watch(trackingProvider);
     final dotState = ref.watch(dotProvider);
+    // 位置情報ストリームを購読（これにより位置更新が有効になる）
+    // ignore: unused_local_variable
+    final currentPosition = ref.watch(currentLatLngProvider);
 
     // 位置更新時にドット収集をチェック
     ref.listen(currentLatLngProvider, (previous, next) {
