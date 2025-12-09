@@ -61,6 +61,9 @@ class TrackingState {
   }
 }
 
+/// 位置更新時のコールバック型
+typedef PositionUpdateCallback = void Function(LatLng position, double speedKmh);
+
 class TrackingNotifier extends StateNotifier<TrackingState> {
   final DatabaseService _databaseService;
   final LocationService _locationService;
@@ -69,10 +72,16 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
   StreamSubscription<Position>? _positionSubscription;
   Timer? _durationTimer;
   DateTime? _lastPointTime;
+  PositionUpdateCallback? _onPositionUpdateCallback;
 
   TrackingNotifier(this._databaseService, this._locationService)
       : super(TrackingState()) {
     _loadActiveSession();
+  }
+
+  /// 位置更新時のコールバックを設定
+  void setPositionUpdateCallback(PositionUpdateCallback? callback) {
+    _onPositionUpdateCallback = callback;
   }
 
   Future<void> _loadActiveSession() async {
@@ -211,6 +220,12 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
       currentSpeed: speedKmh,
       currentMode: mode,
       sessionDistance: newDistance,
+    );
+
+    // 位置更新コールバックを呼び出し
+    _onPositionUpdateCallback?.call(
+      LatLng(position.latitude, position.longitude),
+      speedKmh,
     );
 
     // セッションを更新
