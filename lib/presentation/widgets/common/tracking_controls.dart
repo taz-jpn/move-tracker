@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/dot_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../providers/tracking_provider.dart';
 
 class TrackingControls extends ConsumerWidget {
@@ -27,7 +29,21 @@ class TrackingControls extends ConsumerWidget {
           if (!isTracking)
             ElevatedButton.icon(
               onPressed: () {
+                // トラッキング開始
                 ref.read(trackingProvider.notifier).startSession();
+
+                // ドット初期化
+                final currentPosition = ref.read(currentLatLngProvider);
+                if (currentPosition != null) {
+                  ref.read(dotProvider.notifier).initializeDots(currentPosition);
+                }
+
+                // 位置更新時のドット収集コールバックを設定
+                ref.read(trackingProvider.notifier).setPositionUpdateCallback(
+                  (position, speedKmh) {
+                    ref.read(dotProvider.notifier).onPositionUpdate(position, speedKmh);
+                  },
+                );
               },
               icon: const Icon(Icons.play_arrow),
               label: const Text('記録開始'),
@@ -82,6 +98,11 @@ class TrackingControls extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
+              // コールバック解除
+              ref.read(trackingProvider.notifier).setPositionUpdateCallback(null);
+              // ドットリセット
+              ref.read(dotProvider.notifier).reset();
+              // セッション停止
               ref.read(trackingProvider.notifier).stopSession();
               Navigator.pop(context);
             },
