@@ -31,10 +31,11 @@ lib/
 ```
 
 ## 主要機能
-1. **地図表示**: OpenStreetMapタイル表示
-2. **GPS追跡**: リアルタイム位置取得
-3. **軌跡記録**: 移動経路をポリラインで描画（速度帯で色分け）
-4. **スコアリング**: 移動時間×倍率でポイント計算
+1. **地図表示**: CartoDB Voyagerタイル表示（Retina対応）
+2. **GPS追跡**: リアルタイム位置取得（フィルタリング付き）
+3. **スコアリング**: 移動時間×倍率でポイント計算
+4. **ドット収集**: パックマン風のドット収集ゲーム機能
+5. **メダルシステム**: 実績に応じたメダル獲得
 
 ## 速度判定ルール
 | 速度 | 移動手段 | スコア倍率 | 色 |
@@ -62,5 +63,48 @@ flutter build ios      # iOS
 
 ## 開発時の注意
 - 位置情報権限は `android/app/src/main/AndroidManifest.xml` と `ios/Runner/Info.plist` で設定済み
-- 地図タイルはOpenStreetMapを使用（利用規約に従いUserAgentを設定）
+- 地図タイルはCartoDB Voyagerを使用（UserAgent設定済み）
 - スコア計算は `lib/presentation/providers/tracking_provider.dart` の `stopSession()` で実行
+
+## 技術的な注意点
+
+### GPSフィルタリング
+歩行中のGPSジャンプによる誤検出対策として以下を実装:
+- `lib/core/constants/gps_filter_config.dart`: フィルタ設定
+- `lib/core/utils/speed_filter.dart`: 速度フィルタ（移動平均、加速度制限）
+- 精度20m以下のポイントのみ使用、時間ギャップ検出
+
+### Riverpod ref.listen の制限
+**重要**: `ref.listen(currentLatLngProvider, ...)` を使用するとGPSが停止する問題あり。
+位置更新に反応する処理は、代わりにコールバック方式を使用:
+```dart
+// tracking_provider.dart
+typedef PositionUpdateCallback = void Function(LatLng position, double speedKmh);
+ref.read(trackingProvider.notifier).setPositionUpdateCallback(callback);
+```
+
+### IndexedStack とデータ更新
+`IndexedStack`では画面が常にメモリ保持されるため、`FutureProvider.autoDispose`が効かない。
+タブ切り替え時に `ref.invalidate()` で明示的にデータを再取得:
+```dart
+// main_screen.dart
+onDestinationSelected: (index) {
+  if (index == 1) ref.invalidate(scoreSummaryProvider);
+  // ...
+}
+```
+
+## 開発履歴
+
+### 2024-12 実装済み機能
+1. **GPSフィルタリング**: 歩行中の誤検出を45%→13%に改善
+2. **軌跡ポリライン削除**: GPS精度問題のため削除
+3. **メダルシステム**: 13種類のメダル（距離、連続、スコア、特殊）
+4. **ドット収集システム**:
+   - パックマン風のドット収集ゲーム
+   - 3種類のドット（normal/silver/gold）
+   - 速度30km/h以下、15m以内で収集可能
+5. **地図タイル変更**: OpenStreetMap → CartoDB Voyager（Retina対応）
+
+### ゲーム機能の設計ドキュメント
+- `docs/game_features_proposal.md`: ゲーム機能提案書
