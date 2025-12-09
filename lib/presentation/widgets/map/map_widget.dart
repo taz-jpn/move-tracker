@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import '../../providers/dot_provider.dart';
 import '../../providers/location_provider.dart';
+import '../../providers/tracking_provider.dart';
 
 class MapWidget extends ConsumerStatefulWidget {
   const MapWidget({super.key});
@@ -18,6 +20,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   @override
   Widget build(BuildContext context) {
     final currentPosition = ref.watch(currentLatLngProvider);
+    final trackingState = ref.watch(trackingProvider);
+    final dotState = ref.watch(dotProvider);
 
     // ユーザー追従
     if (_followUser && currentPosition != null) {
