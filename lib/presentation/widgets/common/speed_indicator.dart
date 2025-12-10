@@ -22,13 +22,18 @@ class SpeedIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final backgroundColor = theme.colorScheme.surface;
+    final dividerColor = theme.dividerColor;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: backgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(25),
+            color: isDark ? Colors.black.withAlpha(50) : Colors.black.withAlpha(25),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -38,6 +43,7 @@ class SpeedIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildItem(
+            context: context,
             icon: Icons.speed,
             label: '速度',
             value: Formatters.formatSpeed(speed),
@@ -45,9 +51,10 @@ class SpeedIndicator extends StatelessWidget {
           Container(
             height: 40,
             width: 1,
-            color: Colors.grey[300],
+            color: dividerColor,
           ),
           _buildItem(
+            context: context,
             icon: _getModeIcon(mode),
             label: '移動手段',
             value: mode.displayName,
@@ -56,9 +63,10 @@ class SpeedIndicator extends StatelessWidget {
           Container(
             height: 40,
             width: 1,
-            color: Colors.grey[300],
+            color: dividerColor,
           ),
           _buildItem(
+            context: context,
             icon: Icons.straighten,
             label: '距離',
             value: Formatters.formatDistance(distance),
@@ -66,9 +74,10 @@ class SpeedIndicator extends StatelessWidget {
           Container(
             height: 40,
             width: 1,
-            color: Colors.grey[300],
+            color: dividerColor,
           ),
           _buildItem(
+            context: context,
             icon: Icons.timer,
             label: '時間',
             value: Formatters.formatDuration(duration),
@@ -77,9 +86,10 @@ class SpeedIndicator extends StatelessWidget {
             Container(
               height: 40,
               width: 1,
-              color: Colors.grey[300],
+              color: dividerColor,
             ),
             _buildItem(
+              context: context,
               icon: Icons.circle,
               label: 'ドット',
               value: '$dotCount (+$dotScore)',
@@ -105,29 +115,34 @@ class SpeedIndicator extends StatelessWidget {
   }
 
   Widget _buildItem({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required String value,
     Color? color,
   }) {
+    final theme = Theme.of(context);
+    final defaultColor = theme.colorScheme.onSurface;
+    final labelColor = theme.colorScheme.onSurfaceVariant;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: color ?? Colors.grey[600], size: 20),
+        Icon(icon, color: color ?? labelColor, size: 20),
         const SizedBox(height: 4),
         Text(
           value,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
-            color: color ?? Colors.black87,
+            color: color ?? defaultColor,
           ),
         ),
         Text(
           label,
           style: TextStyle(
             fontSize: 10,
-            color: Colors.grey[500],
+            color: labelColor,
           ),
         ),
       ],

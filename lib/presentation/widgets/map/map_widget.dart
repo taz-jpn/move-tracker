@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../data/models/collectible_dot.dart';
 import '../../providers/dot_provider.dart';
 import '../../providers/location_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../providers/tracking_provider.dart';
 
 class MapWidget extends ConsumerStatefulWidget {
@@ -48,6 +49,13 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     final currentPosition = ref.watch(currentLatLngProvider);
     final trackingState = ref.watch(trackingProvider);
     final dotState = ref.watch(dotProvider);
+    final settings = ref.watch(settingsProvider);
+    final isDarkMode = settings.themeMode == ThemeMode.dark;
+
+    // ダークモード時は暗い地図タイルを使用
+    final tileUrl = isDarkMode
+        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
     // ユーザー追従
     if (_followUser && currentPosition != null) {
@@ -74,9 +82,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             },
           ),
           children: [
-            // CartoDB Voyager タイル（シンプルで見やすい）
+            // CartoDB タイル（ダークモード対応）
             TileLayer(
-              urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+              urlTemplate: tileUrl,
               subdomains: const ['a', 'b', 'c', 'd'],
               userAgentPackageName: 'com.example.move_tracker',
               maxZoom: 19,

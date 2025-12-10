@@ -11,14 +11,16 @@ class TrackingControls extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final trackingState = ref.watch(trackingProvider);
     final isTracking = trackingState.isTracking;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(12),
+            color: isDark ? Colors.black.withAlpha(30) : Colors.black.withAlpha(12),
             blurRadius: 4,
           ),
         ],
