@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/constants/app_colors.dart';
+import 'presentation/providers/settings_provider.dart';
 import 'presentation/screens/main_screen.dart';
 
-class MoveTrackerApp extends StatelessWidget {
+class MoveTrackerApp extends ConsumerWidget {
   const MoveTrackerApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return MaterialApp(
       title: 'MoveTracker',
       debugShowCheckedModeBanner: false,
+      themeMode: themeMode,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.primary,
@@ -41,6 +46,41 @@ class MoveTrackerApp extends StatelessWidget {
             return TextStyle(
               fontSize: 12,
               color: Colors.grey[600],
+            );
+          }),
+        ),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.primary,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
+        cardTheme: CardThemeData(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: Colors.grey[900],
+          indicatorColor: AppColors.primary.withAlpha(50),
+          labelTextStyle: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+              );
+            }
+            return TextStyle(
+              fontSize: 12,
+              color: Colors.grey[400],
             );
           }),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/score_provider.dart';
+import '../widgets/common/app_status_bar.dart';
 import 'map_screen.dart';
 import 'score_screen.dart';
 import 'history_screen.dart';
@@ -24,9 +25,20 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // 上部ステータスバー
+            const AppStatusBar(),
+            // メインコンテンツ
+            Expanded(
+              child: IndexedStack(
+                index: _currentIndex,
+                children: _screens,
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,

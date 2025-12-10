@@ -51,27 +51,25 @@ class MapScreen extends ConsumerWidget {
             );
           }
 
-          return SafeArea(
-            child: Column(
-              children: [
-                // 地図
-                const Expanded(
-                  child: MapWidget(),
+          return Column(
+            children: [
+              // 地図
+              const Expanded(
+                child: MapWidget(),
+              ),
+
+              // 速度/移動手段インジケーター（トラッキング中のみ表示）
+              if (trackingState.isTracking)
+                SpeedIndicator(
+                  speed: trackingState.currentSpeed,
+                  mode: trackingState.currentMode,
+                  distance: trackingState.sessionDistance,
+                  duration: trackingState.sessionDuration,
                 ),
 
-                // 速度/移動手段インジケーター（トラッキング中のみ表示）
-                if (trackingState.isTracking)
-                  SpeedIndicator(
-                    speed: trackingState.currentSpeed,
-                    mode: trackingState.currentMode,
-                    distance: trackingState.sessionDistance,
-                    duration: trackingState.sessionDuration,
-                  ),
-
-                // トラッキングコントロール
-                const TrackingControls(),
-              ],
-            ),
+              // トラッキングコントロール
+              const TrackingControls(),
+            ],
           );
         },
       ),
