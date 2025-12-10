@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../core/utils/formatters.dart';
 import '../../data/models/track_session.dart';
 import '../providers/score_provider.dart';
+import '../widgets/common/app_status_bar.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
@@ -17,6 +18,7 @@ class HistoryScreen extends ConsumerWidget {
         title: const Text('履歴'),
         centerTitle: true,
         elevation: 0,
+        actions: const [AppBarSettingsActions()],
       ),
       body: sessionsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),

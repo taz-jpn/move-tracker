@@ -4,6 +4,7 @@ import '../../data/models/medal.dart';
 import '../providers/score_provider.dart';
 import '../widgets/medal/medal_grid.dart';
 import '../widgets/score/score_card.dart';
+import '../widgets/common/app_status_bar.dart';
 
 class ScoreScreen extends ConsumerWidget {
   const ScoreScreen({super.key});
@@ -18,6 +19,7 @@ class ScoreScreen extends ConsumerWidget {
         title: const Text('スコア'),
         centerTitle: true,
         elevation: 0,
+        actions: const [AppBarSettingsActions()],
       ),
       body: scoreSummaryAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),

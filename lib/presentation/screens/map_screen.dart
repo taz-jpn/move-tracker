@@ -5,6 +5,7 @@ import '../providers/tracking_provider.dart';
 import '../widgets/map/map_widget.dart';
 import '../widgets/common/speed_indicator.dart';
 import '../widgets/common/tracking_controls.dart';
+import '../widgets/common/app_status_bar.dart';
 
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
@@ -15,6 +16,12 @@ class MapScreen extends ConsumerWidget {
     final trackingState = ref.watch(trackingProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('マップ'),
+        centerTitle: true,
+        elevation: 0,
+        actions: const [AppBarSettingsActions()],
+      ),
       body: permissionAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
