@@ -11,6 +11,8 @@ class ScoreCard extends StatelessWidget {
   final int cyclingSeconds;
   final double vehicleScore;
   final int vehicleSeconds;
+  final int totalDotCount;
+  final int totalDotScore;
 
   const ScoreCard({
     super.key,
@@ -21,6 +23,8 @@ class ScoreCard extends StatelessWidget {
     required this.cyclingSeconds,
     required this.vehicleScore,
     required this.vehicleSeconds,
+    this.totalDotCount = 0,
+    this.totalDotScore = 0,
   });
 
   @override
@@ -94,6 +98,10 @@ class ScoreCard extends StatelessWidget {
               score: vehicleScore,
               seconds: vehicleSeconds,
             ),
+            if (totalDotCount > 0) ...[
+              const Divider(height: 24),
+              _buildDotScore(),
+            ],
           ],
         ),
       ),
@@ -177,5 +185,68 @@ class ScoreCard extends StatelessWidget {
       case TransportMode.vehicle:
         return Icons.directions_car;
     }
+  }
+
+  Widget _buildDotScore() {
+    const dotColor = Color(0xFFFFD700);
+    return Row(
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: dotColor.withAlpha(25),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Icon(
+            Icons.circle,
+            color: dotColor,
+            size: 28,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'ドット収集',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                '$totalDotCount 個',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              Formatters.formatScore(totalDotScore.toDouble()),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: dotColor,
+              ),
+            ),
+            Text(
+              'ボーナス',
+              style: TextStyle(
+                color: Colors.grey[500],
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

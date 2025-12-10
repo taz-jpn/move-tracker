@@ -152,6 +152,26 @@ class HistoryScreen extends ConsumerWidget {
                 ),
               ],
             ),
+
+            // ドット収集（ある場合のみ）
+            if (session.dotCount > 0) ...[
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.circle, color: Color(0xFFFFD700), size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${session.dotCount}個収集 (+${session.dotScore}pts)',
+                    style: const TextStyle(
+                      color: Color(0xFFFFD700),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

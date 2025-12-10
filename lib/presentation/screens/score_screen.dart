@@ -58,6 +58,8 @@ class ScoreScreen extends ConsumerWidget {
                     cyclingSeconds: summary.cyclingSeconds,
                     vehicleScore: summary.vehicleScore,
                     vehicleSeconds: summary.vehicleSeconds,
+                    totalDotCount: summary.totalDotCount,
+                    totalDotScore: summary.totalDotScore,
                   ),
                   const SizedBox(height: 16),
                   MedalGrid(earnedMedals: earnedMedals),
@@ -96,7 +98,29 @@ class ScoreScreen extends ConsumerWidget {
             _buildScoreRule('車・列車 (30+ km/h)', '1.0x', Colors.orange),
             const SizedBox(height: 12),
             Text(
-              'スコア = 移動時間(分) × 倍率',
+              '移動スコア = 移動時間(分) × 倍率',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+              ),
+            ),
+            const Divider(height: 24),
+            const Text(
+              'ドット収集ボーナス',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildScoreRule('通常ドット', '+10pts', const Color(0xFFFFD700)),
+            const SizedBox(height: 8),
+            _buildScoreRule('シルバードット', '+30pts', const Color(0xFFC0C0C0)),
+            const SizedBox(height: 8),
+            _buildScoreRule('ゴールドドット', '+100pts', const Color(0xFFFF8C00)),
+            const SizedBox(height: 12),
+            Text(
+              '※ 速度30km/h以下、15m以内で収集可能',
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 12,

@@ -236,7 +236,7 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
     await _databaseService.updateSession(updatedSession);
   }
 
-  Future<void> stopSession() async {
+  Future<void> stopSession({int dotCount = 0, int dotScore = 0}) async {
     _positionSubscription?.cancel();
     _durationTimer?.cancel();
 
@@ -281,6 +281,8 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
         cyclingSeconds: cyclingSeconds,
         vehicleSeconds: vehicleSeconds,
         totalScore: totalScore,
+        dotCount: dotCount,
+        dotScore: dotScore,
       );
 
       await _databaseService.updateSession(completedSession);
@@ -295,6 +297,8 @@ class TrackingNotifier extends StateNotifier<TrackingState> {
         cyclingSeconds: currentSummary.cyclingSeconds + cyclingSeconds,
         vehicleScore: currentSummary.vehicleScore + vehicleScore,
         vehicleSeconds: currentSummary.vehicleSeconds + vehicleSeconds,
+        totalDotCount: currentSummary.totalDotCount + dotCount,
+        totalDotScore: currentSummary.totalDotScore + dotScore,
         lastUpdated: DateTime.now(),
       );
       await _databaseService.updateScoreSummary(newSummary);

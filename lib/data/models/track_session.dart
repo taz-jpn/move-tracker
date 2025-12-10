@@ -11,6 +11,8 @@ class TrackSession {
   final int cyclingSeconds;
   final int vehicleSeconds;
   final double totalScore;
+  final int dotCount; // 収集ドット数
+  final int dotScore; // ドットスコア
 
   TrackSession({
     required this.id,
@@ -23,6 +25,8 @@ class TrackSession {
     this.cyclingSeconds = 0,
     this.vehicleSeconds = 0,
     this.totalScore = 0,
+    this.dotCount = 0,
+    this.dotScore = 0,
   });
 
   Map<String, dynamic> toMap() {
@@ -37,6 +41,8 @@ class TrackSession {
       'cycling_seconds': cyclingSeconds,
       'vehicle_seconds': vehicleSeconds,
       'total_score': totalScore,
+      'dot_count': dotCount,
+      'dot_score': dotScore,
     };
   }
 
@@ -54,6 +60,8 @@ class TrackSession {
       cyclingSeconds: map['cycling_seconds'] as int,
       vehicleSeconds: map['vehicle_seconds'] as int,
       totalScore: map['total_score'] as double,
+      dotCount: (map['dot_count'] as int?) ?? 0,
+      dotScore: (map['dot_score'] as int?) ?? 0,
     );
   }
 
@@ -68,6 +76,8 @@ class TrackSession {
     int? cyclingSeconds,
     int? vehicleSeconds,
     double? totalScore,
+    int? dotCount,
+    int? dotScore,
   }) {
     return TrackSession(
       id: id ?? this.id,
@@ -80,6 +90,8 @@ class TrackSession {
       cyclingSeconds: cyclingSeconds ?? this.cyclingSeconds,
       vehicleSeconds: vehicleSeconds ?? this.vehicleSeconds,
       totalScore: totalScore ?? this.totalScore,
+      dotCount: dotCount ?? this.dotCount,
+      dotScore: dotScore ?? this.dotScore,
     );
   }
 }

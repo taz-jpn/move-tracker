@@ -102,10 +102,17 @@ class TrackingControls extends ConsumerWidget {
             onPressed: () {
               // コールバック解除
               ref.read(trackingProvider.notifier).setPositionUpdateCallback(null);
+              // ドットデータを取得
+              final dotState = ref.read(dotProvider);
+              final dotCount = dotState.collectedCount;
+              final dotScore = dotState.totalScore;
               // ドットリセット
               ref.read(dotProvider.notifier).reset();
-              // セッション停止
-              ref.read(trackingProvider.notifier).stopSession();
+              // セッション停止（ドットデータを渡す）
+              ref.read(trackingProvider.notifier).stopSession(
+                dotCount: dotCount,
+                dotScore: dotScore,
+              );
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(

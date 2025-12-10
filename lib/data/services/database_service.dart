@@ -19,7 +19,7 @@ class DatabaseService {
 
     return openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -37,7 +37,9 @@ class DatabaseService {
         walking_seconds INTEGER DEFAULT 0,
         cycling_seconds INTEGER DEFAULT 0,
         vehicle_seconds INTEGER DEFAULT 0,
-        total_score REAL DEFAULT 0
+        total_score REAL DEFAULT 0,
+        dot_count INTEGER DEFAULT 0,
+        dot_score INTEGER DEFAULT 0
       )
     ''');
 
@@ -66,6 +68,8 @@ class DatabaseService {
         cycling_seconds INTEGER DEFAULT 0,
         vehicle_score REAL DEFAULT 0,
         vehicle_seconds INTEGER DEFAULT 0,
+        total_dot_count INTEGER DEFAULT 0,
+        total_dot_score INTEGER DEFAULT 0,
         last_updated INTEGER NOT NULL
       )
     ''');
@@ -80,6 +84,8 @@ class DatabaseService {
       'cycling_seconds': 0,
       'vehicle_score': 0,
       'vehicle_seconds': 0,
+      'total_dot_count': 0,
+      'total_dot_score': 0,
       'last_updated': DateTime.now().millisecondsSinceEpoch,
     });
 
@@ -100,6 +106,13 @@ class DatabaseService {
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
       await _createMedalTable(db);
+    }
+    if (oldVersion < 3) {
+      // ドットカラム追加
+      await db.execute('ALTER TABLE track_sessions ADD COLUMN dot_count INTEGER DEFAULT 0');
+      await db.execute('ALTER TABLE track_sessions ADD COLUMN dot_score INTEGER DEFAULT 0');
+      await db.execute('ALTER TABLE score_summary ADD COLUMN total_dot_count INTEGER DEFAULT 0');
+      await db.execute('ALTER TABLE score_summary ADD COLUMN total_dot_score INTEGER DEFAULT 0');
     }
   }
 
