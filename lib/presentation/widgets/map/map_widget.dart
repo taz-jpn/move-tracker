@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import '../../../data/models/collectible_dot.dart';
@@ -15,9 +16,26 @@ class MapWidget extends ConsumerStatefulWidget {
   ConsumerState<MapWidget> createState() => _MapWidgetState();
 }
 
-class _MapWidgetState extends ConsumerState<MapWidget> {
-  final MapController _mapController = MapController();
+class _MapWidgetState extends ConsumerState<MapWidget>
+    with TickerProviderStateMixin {
+  late final AnimatedMapController _animatedMapController;
   bool _followUser = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _animatedMapController = AnimatedMapController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animatedMapController.dispose();
+    super.dispose();
+  }
 
   Marker _buildDotMarker(CollectibleDot dot) {
     return Marker(
@@ -57,11 +75,15 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
         : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
-    // ユーザー追従
+    // ユーザー追従（スムーズアニメーション）
     if (_followUser && currentPosition != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         try {
-          _mapController.move(currentPosition, _mapController.camera.zoom);
+          _animatedMapController.animateTo(
+            dest: currentPosition,
+            zoom: _animatedMapController.mapController.camera.zoom,
+          );
         } catch (_) {}
       });
     }
@@ -69,7 +91,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
     return Stack(
       children: [
         FlutterMap(
-          mapController: _mapController,
+          mapController: _animatedMapController.mapController,
           options: MapOptions(
             initialCenter: currentPosition ?? const LatLng(35.6812, 139.7671),
             initialZoom: 16.0,
@@ -134,7 +156,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             onPressed: () {
               setState(() => _followUser = true);
               if (currentPosition != null) {
-                _mapController.move(currentPosition, 16.0);
+                _animatedMapController.animateTo(
+                  dest: currentPosition,
+                  zoom: 16.0,
+                );
               }
             },
             backgroundColor: _followUser ? Colors.blue : Colors.white,
