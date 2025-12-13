@@ -119,15 +119,15 @@ class _MapWidgetState extends ConsumerState<MapWidget>
                 markers: dotState.uncollectedDots.map((dot) => _buildDotMarker(dot)).toList(),
               ),
 
-            // 現在地マーカー
+            // 現在地マーカー（スムーズアニメーション）
             if (currentPosition != null)
-              MarkerLayer(
+              AnimatedMarkerLayer(
                 markers: [
-                  Marker(
+                  AnimatedMarker(
                     point: currentPosition,
                     width: 30,
                     height: 30,
-                    child: Container(
+                    builder: (context, animation) => Container(
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         shape: BoxShape.circle,
