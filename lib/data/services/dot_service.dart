@@ -8,7 +8,7 @@ class DotConfig {
   DotConfig._();
 
   /// 収集可能な距離（メートル）
-  static const double collectRadius = 15.0;
+  static const double collectRadius = 30.0;
 
   /// 初期生成数
   static const int initialDotCount = 15;

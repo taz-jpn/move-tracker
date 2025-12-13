@@ -120,7 +120,7 @@ class ScoreScreen extends ConsumerWidget {
             _buildScoreRule('ゴールドドット', '+100pts', const Color(0xFFFF8C00)),
             const SizedBox(height: 12),
             Text(
-              '※ 速度30km/h以下、15m以内で収集可能',
+              '※ 速度30km/h以下、30m以内で収集可能',
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 12,
