@@ -51,6 +51,13 @@
   "dotCollectionNote": "* Collect at speed ≤30km/h within 30m",
 
   "error": "Error: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "reload": "Reload",
 
   "noRecords": "No records",
@@ -94,5 +101,15 @@
   "medalNightWalker": "Night Walker",
   "medalNightWalkerDesc": "Record after 10pm",
 
-  "dotsCollected": "{count} collected (+{score}pts)"
+  "dotsCollected": "{count} collected (+{score}pts)",
+  "@dotsCollected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      }
+    }
+  }
 }

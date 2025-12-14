@@ -100,458 +100,458 @@ abstract class AppLocalizations {
 
   /// No description provided for @appTitle.
   ///
-  /// In ja, this message translates to:
+  /// In en, this message translates to:
   /// **'MoveTracker'**
   String get appTitle;
 
   /// No description provided for @tabMap.
   ///
-  /// In ja, this message translates to:
-  /// **'マップ'**
+  /// In en, this message translates to:
+  /// **'Map'**
   String get tabMap;
 
   /// No description provided for @tabScore.
   ///
-  /// In ja, this message translates to:
-  /// **'スコア'**
+  /// In en, this message translates to:
+  /// **'Score'**
   String get tabScore;
 
   /// No description provided for @tabHistory.
   ///
-  /// In ja, this message translates to:
-  /// **'履歴'**
+  /// In en, this message translates to:
+  /// **'History'**
   String get tabHistory;
 
   /// No description provided for @map.
   ///
-  /// In ja, this message translates to:
-  /// **'マップ'**
+  /// In en, this message translates to:
+  /// **'Map'**
   String get map;
 
   /// No description provided for @score.
   ///
-  /// In ja, this message translates to:
-  /// **'スコア'**
+  /// In en, this message translates to:
+  /// **'Score'**
   String get score;
 
   /// No description provided for @history.
   ///
-  /// In ja, this message translates to:
-  /// **'履歴'**
+  /// In en, this message translates to:
+  /// **'History'**
   String get history;
 
   /// No description provided for @locationPermissionRequired.
   ///
-  /// In ja, this message translates to:
-  /// **'位置情報の権限が必要です'**
+  /// In en, this message translates to:
+  /// **'Location permission is required'**
   String get locationPermissionRequired;
 
   /// No description provided for @requestPermission.
   ///
-  /// In ja, this message translates to:
-  /// **'権限をリクエスト'**
+  /// In en, this message translates to:
+  /// **'Request Permission'**
   String get requestPermission;
 
   /// No description provided for @locationPermissionDenied.
   ///
-  /// In ja, this message translates to:
-  /// **'位置情報の権限が拒否されました'**
+  /// In en, this message translates to:
+  /// **'Location permission denied'**
   String get locationPermissionDenied;
 
   /// No description provided for @enableLocationInSettings.
   ///
-  /// In ja, this message translates to:
-  /// **'設定から位置情報の権限を許可してください'**
+  /// In en, this message translates to:
+  /// **'Please enable location permission in settings'**
   String get enableLocationInSettings;
 
   /// No description provided for @startTracking.
   ///
-  /// In ja, this message translates to:
-  /// **'記録開始'**
+  /// In en, this message translates to:
+  /// **'Start'**
   String get startTracking;
 
   /// No description provided for @stopTracking.
   ///
-  /// In ja, this message translates to:
-  /// **'記録停止'**
+  /// In en, this message translates to:
+  /// **'Stop'**
   String get stopTracking;
 
   /// No description provided for @stopTrackingTitle.
   ///
-  /// In ja, this message translates to:
-  /// **'記録を停止しますか？'**
+  /// In en, this message translates to:
+  /// **'Stop tracking?'**
   String get stopTrackingTitle;
 
   /// No description provided for @stopTrackingMessage.
   ///
-  /// In ja, this message translates to:
-  /// **'現在のセッションを終了してスコアを計算します。'**
+  /// In en, this message translates to:
+  /// **'This will end the current session and calculate your score.'**
   String get stopTrackingMessage;
 
   /// No description provided for @cancel.
   ///
-  /// In ja, this message translates to:
-  /// **'キャンセル'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @stop.
   ///
-  /// In ja, this message translates to:
-  /// **'停止'**
+  /// In en, this message translates to:
+  /// **'Stop'**
   String get stop;
 
   /// No description provided for @speed.
   ///
-  /// In ja, this message translates to:
-  /// **'速度'**
+  /// In en, this message translates to:
+  /// **'Speed'**
   String get speed;
 
   /// No description provided for @transportMode.
   ///
-  /// In ja, this message translates to:
-  /// **'移動手段'**
+  /// In en, this message translates to:
+  /// **'Mode'**
   String get transportMode;
 
   /// No description provided for @distance.
   ///
-  /// In ja, this message translates to:
-  /// **'距離'**
+  /// In en, this message translates to:
+  /// **'Distance'**
   String get distance;
 
   /// No description provided for @time.
   ///
-  /// In ja, this message translates to:
-  /// **'時間'**
+  /// In en, this message translates to:
+  /// **'Time'**
   String get time;
 
   /// No description provided for @dots.
   ///
-  /// In ja, this message translates to:
-  /// **'ドット'**
+  /// In en, this message translates to:
+  /// **'Dots'**
   String get dots;
 
   /// No description provided for @stationary.
   ///
-  /// In ja, this message translates to:
-  /// **'停止中'**
+  /// In en, this message translates to:
+  /// **'Stationary'**
   String get stationary;
 
   /// No description provided for @walking.
   ///
-  /// In ja, this message translates to:
-  /// **'徒歩'**
+  /// In en, this message translates to:
+  /// **'Walking'**
   String get walking;
 
   /// No description provided for @cycling.
   ///
-  /// In ja, this message translates to:
-  /// **'自転車'**
+  /// In en, this message translates to:
+  /// **'Cycling'**
   String get cycling;
 
   /// No description provided for @vehicle.
   ///
-  /// In ja, this message translates to:
-  /// **'車・列車'**
+  /// In en, this message translates to:
+  /// **'Vehicle'**
   String get vehicle;
 
   /// No description provided for @totalScore.
   ///
-  /// In ja, this message translates to:
-  /// **'合計スコア'**
+  /// In en, this message translates to:
+  /// **'Total Score'**
   String get totalScore;
 
   /// No description provided for @dotCollection.
   ///
-  /// In ja, this message translates to:
-  /// **'ドット収集'**
+  /// In en, this message translates to:
+  /// **'Dot Collection'**
   String get dotCollection;
 
   /// No description provided for @bonus.
   ///
-  /// In ja, this message translates to:
-  /// **'ボーナス'**
+  /// In en, this message translates to:
+  /// **'Bonus'**
   String get bonus;
 
   /// No description provided for @scoreCalculation.
   ///
-  /// In ja, this message translates to:
-  /// **'スコアの計算方法'**
+  /// In en, this message translates to:
+  /// **'Score Calculation'**
   String get scoreCalculation;
 
   /// No description provided for @walkingScore.
   ///
-  /// In ja, this message translates to:
-  /// **'徒歩 (3-6 km/h)'**
+  /// In en, this message translates to:
+  /// **'Walking (3-6 km/h)'**
   String get walkingScore;
 
   /// No description provided for @cyclingScore.
   ///
-  /// In ja, this message translates to:
-  /// **'自転車 (7-29 km/h)'**
+  /// In en, this message translates to:
+  /// **'Cycling (7-29 km/h)'**
   String get cyclingScore;
 
   /// No description provided for @vehicleScore.
   ///
-  /// In ja, this message translates to:
-  /// **'車・列車 (30+ km/h)'**
+  /// In en, this message translates to:
+  /// **'Vehicle (30+ km/h)'**
   String get vehicleScore;
 
   /// No description provided for @scoreFormula.
   ///
-  /// In ja, this message translates to:
-  /// **'移動スコア = 移動時間(分) × 倍率'**
+  /// In en, this message translates to:
+  /// **'Score = Duration (min) × Multiplier'**
   String get scoreFormula;
 
   /// No description provided for @dotCollectionBonus.
   ///
-  /// In ja, this message translates to:
-  /// **'ドット収集ボーナス'**
+  /// In en, this message translates to:
+  /// **'Dot Collection Bonus'**
   String get dotCollectionBonus;
 
   /// No description provided for @normalDot.
   ///
-  /// In ja, this message translates to:
-  /// **'通常ドット'**
+  /// In en, this message translates to:
+  /// **'Normal Dot'**
   String get normalDot;
 
   /// No description provided for @silverDot.
   ///
-  /// In ja, this message translates to:
-  /// **'シルバードット'**
+  /// In en, this message translates to:
+  /// **'Silver Dot'**
   String get silverDot;
 
   /// No description provided for @goldDot.
   ///
-  /// In ja, this message translates to:
-  /// **'ゴールドドット'**
+  /// In en, this message translates to:
+  /// **'Gold Dot'**
   String get goldDot;
 
   /// No description provided for @dotCollectionNote.
   ///
-  /// In ja, this message translates to:
-  /// **'※ 速度30km/h以下、30m以内で収集可能'**
+  /// In en, this message translates to:
+  /// **'* Collect at speed ≤30km/h within 30m'**
   String get dotCollectionNote;
 
   /// No description provided for @error.
   ///
-  /// In ja, this message translates to:
-  /// **'エラー: {message}'**
+  /// In en, this message translates to:
+  /// **'Error: {message}'**
   String error(String message);
 
   /// No description provided for @reload.
   ///
-  /// In ja, this message translates to:
-  /// **'再読み込み'**
+  /// In en, this message translates to:
+  /// **'Reload'**
   String get reload;
 
   /// No description provided for @noRecords.
   ///
-  /// In ja, this message translates to:
-  /// **'記録がありません'**
+  /// In en, this message translates to:
+  /// **'No records'**
   String get noRecords;
 
   /// No description provided for @startTrackingFromMap.
   ///
-  /// In ja, this message translates to:
-  /// **'地図画面から記録を開始してください'**
+  /// In en, this message translates to:
+  /// **'Start tracking from the map screen'**
   String get startTrackingFromMap;
 
   /// No description provided for @switchToLightMode.
   ///
-  /// In ja, this message translates to:
-  /// **'ライトモードに切替'**
+  /// In en, this message translates to:
+  /// **'Switch to Light Mode'**
   String get switchToLightMode;
 
   /// No description provided for @switchToDarkMode.
   ///
-  /// In ja, this message translates to:
-  /// **'ダークモードに切替'**
+  /// In en, this message translates to:
+  /// **'Switch to Dark Mode'**
   String get switchToDarkMode;
 
   /// No description provided for @enableAutoSleep.
   ///
-  /// In ja, this message translates to:
-  /// **'自動消灯を有効化'**
+  /// In en, this message translates to:
+  /// **'Enable Auto Sleep'**
   String get enableAutoSleep;
 
   /// No description provided for @keepScreenOn.
   ///
-  /// In ja, this message translates to:
-  /// **'画面を常時点灯'**
+  /// In en, this message translates to:
+  /// **'Keep Screen On'**
   String get keepScreenOn;
 
   /// No description provided for @medals.
   ///
-  /// In ja, this message translates to:
-  /// **'メダル'**
+  /// In en, this message translates to:
+  /// **'Medals'**
   String get medals;
 
   /// No description provided for @earned.
   ///
-  /// In ja, this message translates to:
-  /// **'獲得済み'**
+  /// In en, this message translates to:
+  /// **'Earned'**
   String get earned;
 
   /// No description provided for @notEarned.
   ///
-  /// In ja, this message translates to:
-  /// **'未獲得'**
+  /// In en, this message translates to:
+  /// **'Not Earned'**
   String get notEarned;
 
   /// No description provided for @close.
   ///
-  /// In ja, this message translates to:
-  /// **'閉じる'**
+  /// In en, this message translates to:
+  /// **'Close'**
   String get close;
 
   /// No description provided for @medalFirstStep.
   ///
-  /// In ja, this message translates to:
-  /// **'ファーストステップ'**
+  /// In en, this message translates to:
+  /// **'First Step'**
   String get medalFirstStep;
 
   /// No description provided for @medalFirstStepDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計1kmを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 1km total'**
   String get medalFirstStepDesc;
 
   /// No description provided for @medalWalker.
   ///
-  /// In ja, this message translates to:
-  /// **'ウォーカー'**
+  /// In en, this message translates to:
+  /// **'Walker'**
   String get medalWalker;
 
   /// No description provided for @medalWalkerDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計10kmを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 10km total'**
   String get medalWalkerDesc;
 
   /// No description provided for @medalMarathoner.
   ///
-  /// In ja, this message translates to:
-  /// **'マラソナー'**
+  /// In en, this message translates to:
+  /// **'Marathoner'**
   String get medalMarathoner;
 
   /// No description provided for @medalMarathonerDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計42.195kmを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 42.195km total'**
   String get medalMarathonerDesc;
 
   /// No description provided for @medal100kmClub.
   ///
-  /// In ja, this message translates to:
-  /// **'100kmクラブ'**
+  /// In en, this message translates to:
+  /// **'100km Club'**
   String get medal100kmClub;
 
   /// No description provided for @medal100kmClubDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計100kmを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 100km total'**
   String get medal100kmClubDesc;
 
   /// No description provided for @medal3Days.
   ///
-  /// In ja, this message translates to:
-  /// **'3日連続'**
+  /// In en, this message translates to:
+  /// **'3-Day Streak'**
   String get medal3Days;
 
   /// No description provided for @medal3DaysDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'3日連続で記録'**
+  /// In en, this message translates to:
+  /// **'Record for 3 consecutive days'**
   String get medal3DaysDesc;
 
   /// No description provided for @medalWeeklyChampion.
   ///
-  /// In ja, this message translates to:
-  /// **'週間チャンピオン'**
+  /// In en, this message translates to:
+  /// **'Weekly Champion'**
   String get medalWeeklyChampion;
 
   /// No description provided for @medalWeeklyChampionDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'7日連続で記録'**
+  /// In en, this message translates to:
+  /// **'Record for 7 consecutive days'**
   String get medalWeeklyChampionDesc;
 
   /// No description provided for @medalMonthlyMaster.
   ///
-  /// In ja, this message translates to:
-  /// **'月間マスター'**
+  /// In en, this message translates to:
+  /// **'Monthly Master'**
   String get medalMonthlyMaster;
 
   /// No description provided for @medalMonthlyMasterDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'30日連続で記録'**
+  /// In en, this message translates to:
+  /// **'Record for 30 consecutive days'**
   String get medalMonthlyMasterDesc;
 
   /// No description provided for @medalRookie.
   ///
-  /// In ja, this message translates to:
-  /// **'ルーキー'**
+  /// In en, this message translates to:
+  /// **'Rookie'**
   String get medalRookie;
 
   /// No description provided for @medalRookieDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計100ポイントを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 100 points total'**
   String get medalRookieDesc;
 
   /// No description provided for @medalExpert.
   ///
-  /// In ja, this message translates to:
-  /// **'エキスパート'**
+  /// In en, this message translates to:
+  /// **'Expert'**
   String get medalExpert;
 
   /// No description provided for @medalExpertDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計1,000ポイントを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 1,000 points total'**
   String get medalExpertDesc;
 
   /// No description provided for @medalMaster.
   ///
-  /// In ja, this message translates to:
-  /// **'マスター'**
+  /// In en, this message translates to:
+  /// **'Master'**
   String get medalMaster;
 
   /// No description provided for @medalMasterDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'累計10,000ポイントを達成'**
+  /// In en, this message translates to:
+  /// **'Achieve 10,000 points total'**
   String get medalMasterDesc;
 
   /// No description provided for @medalEarlyBird.
   ///
-  /// In ja, this message translates to:
-  /// **'早起き'**
+  /// In en, this message translates to:
+  /// **'Early Bird'**
   String get medalEarlyBird;
 
   /// No description provided for @medalEarlyBirdDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'朝6時前に記録を開始'**
+  /// In en, this message translates to:
+  /// **'Start recording before 6am'**
   String get medalEarlyBirdDesc;
 
   /// No description provided for @medalNightWalker.
   ///
-  /// In ja, this message translates to:
-  /// **'ナイトウォーカー'**
+  /// In en, this message translates to:
+  /// **'Night Walker'**
   String get medalNightWalker;
 
   /// No description provided for @medalNightWalkerDesc.
   ///
-  /// In ja, this message translates to:
-  /// **'夜10時以降に記録'**
+  /// In en, this message translates to:
+  /// **'Record after 10pm'**
   String get medalNightWalkerDesc;
 
   /// No description provided for @dotsCollected.
   ///
-  /// In ja, this message translates to:
-  /// **'{count}個収集 (+{score}pts)'**
+  /// In en, this message translates to:
+  /// **'{count} collected (+{score}pts)'**
   String dotsCollected(int count, int score);
 }
 
