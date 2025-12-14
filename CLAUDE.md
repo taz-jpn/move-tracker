@@ -6,16 +6,18 @@ GPSで移動を記録し、移動手段（徒歩/自転車/車）ごとにスコ
 ## 技術スタック
 - **フレームワーク**: Flutter 3.x / Dart 3.x
 - **状態管理**: Riverpod
-- **地図**: flutter_map + OpenStreetMap
+- **地図**: flutter_map + OpenStreetMap + flutter_map_animations
 - **位置情報**: geolocator
 - **データベース**: SQLite (sqflite)
 - **ルーティング**: go_router
+- **多言語対応**: flutter_localizations + ARB files (日本語/英語)
 
 ## ディレクトリ構成
 ```
 lib/
 ├── main.dart              # エントリーポイント
 ├── app.dart               # アプリ設定・テーマ
+├── l10n/                  # 多言語リソース（ARBファイル）
 ├── core/                  # 共通定数・ユーティリティ
 │   ├── constants/         # 色、速度閾値
 │   └── utils/             # 距離計算、フォーマッター
@@ -36,6 +38,7 @@ lib/
 3. **スコアリング**: 移動時間×倍率でポイント計算
 4. **ドット収集**: パックマン風のドット収集ゲーム機能
 5. **メダルシステム**: 実績に応じたメダル獲得
+6. **多言語対応**: 日本語/英語（OSアプリ設定から切替可能）
 
 ## 速度判定ルール
 | 速度 | 移動手段 | スコア倍率 | 色 |
@@ -103,8 +106,14 @@ onDestinationSelected: (index) {
 4. **ドット収集システム**:
    - パックマン風のドット収集ゲーム
    - 3種類のドット（normal/silver/gold）
-   - 速度30km/h以下、15m以内で収集可能
+   - 速度30km/h以下、30m以内で収集可能
 5. **地図タイル変更**: OpenStreetMap → CartoDB Voyager（Retina対応）
+6. **地図アニメーション**: AnimatedMapController + AnimatedMarkerLayer でスムーズな移動
+7. **多言語対応 (i18n)**:
+   - 日本語/英語対応（ARBファイル: `lib/l10n/`）
+   - デフォルト言語: 英語（日本語端末→日本語、その他→英語）
+   - Android 13+: `res/xml/locales_config.xml` でアプリ言語設定対応
+   - iOS 13+: `Info.plist` の `CFBundleLocalizations` で対応
 
 ### ゲーム機能の設計ドキュメント
 - `docs/game_features_proposal.md`: ゲーム機能提案書
