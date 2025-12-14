@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 
 /// メダルの種類
 enum MedalType {
@@ -21,6 +22,67 @@ enum MedalType {
   // 特殊系
   earlyBird,      // 朝6時前に記録開始
   nightWalker,    // 夜10時以降に記録
+}
+
+/// MedalTypeのローカライズ拡張
+extension MedalTypeExtension on MedalType {
+  String getName(AppLocalizations l10n) {
+    switch (this) {
+      case MedalType.firstStep:
+        return l10n.medalFirstStep;
+      case MedalType.walker:
+        return l10n.medalWalker;
+      case MedalType.marathoner:
+        return l10n.medalMarathoner;
+      case MedalType.club100km:
+        return l10n.medal100kmClub;
+      case MedalType.streak3days:
+        return l10n.medal3Days;
+      case MedalType.streak7days:
+        return l10n.medalWeeklyChampion;
+      case MedalType.streak30days:
+        return l10n.medalMonthlyMaster;
+      case MedalType.rookie:
+        return l10n.medalRookie;
+      case MedalType.expert:
+        return l10n.medalExpert;
+      case MedalType.master:
+        return l10n.medalMaster;
+      case MedalType.earlyBird:
+        return l10n.medalEarlyBird;
+      case MedalType.nightWalker:
+        return l10n.medalNightWalker;
+    }
+  }
+
+  String getDescription(AppLocalizations l10n) {
+    switch (this) {
+      case MedalType.firstStep:
+        return l10n.medalFirstStepDesc;
+      case MedalType.walker:
+        return l10n.medalWalkerDesc;
+      case MedalType.marathoner:
+        return l10n.medalMarathonerDesc;
+      case MedalType.club100km:
+        return l10n.medal100kmClubDesc;
+      case MedalType.streak3days:
+        return l10n.medal3DaysDesc;
+      case MedalType.streak7days:
+        return l10n.medalWeeklyChampionDesc;
+      case MedalType.streak30days:
+        return l10n.medalMonthlyMasterDesc;
+      case MedalType.rookie:
+        return l10n.medalRookieDesc;
+      case MedalType.expert:
+        return l10n.medalExpertDesc;
+      case MedalType.master:
+        return l10n.medalMasterDesc;
+      case MedalType.earlyBird:
+        return l10n.medalEarlyBirdDesc;
+      case MedalType.nightWalker:
+        return l10n.medalNightWalkerDesc;
+    }
+  }
 }
 
 /// メダルの定義

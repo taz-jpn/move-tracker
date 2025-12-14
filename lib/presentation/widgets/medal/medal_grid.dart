@@ -59,6 +59,7 @@ class MedalGrid extends StatelessWidget {
                 final isEarned = earnedMedals.contains(medalType);
 
                 return _MedalItem(
+                  medalType: medalType,
                   definition: definition,
                   isEarned: isEarned,
                 );
@@ -72,16 +73,20 @@ class MedalGrid extends StatelessWidget {
 }
 
 class _MedalItem extends StatelessWidget {
+  final MedalType medalType;
   final MedalDefinition definition;
   final bool isEarned;
 
   const _MedalItem({
+    required this.medalType,
     required this.definition,
     required this.isEarned,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: () => _showMedalInfo(context),
       child: Column(
@@ -106,7 +111,7 @@ class _MedalItem extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            definition.name,
+            medalType.getName(l10n),
             style: TextStyle(
               fontSize: 10,
               color: isEarned ? Colors.black87 : Colors.grey[400],
@@ -122,6 +127,8 @@ class _MedalItem extends StatelessWidget {
   }
 
   void _showMedalInfo(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -147,7 +154,7 @@ class _MedalItem extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              definition.name,
+              medalType.getName(l10n),
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -155,7 +162,7 @@ class _MedalItem extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              definition.description,
+              medalType.getDescription(l10n),
               style: TextStyle(
                 color: Colors.grey[600],
               ),
@@ -163,9 +170,7 @@ class _MedalItem extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              isEarned
-                  ? AppLocalizations.of(context)!.earned
-                  : AppLocalizations.of(context)!.notEarned,
+              isEarned ? l10n.earned : l10n.notEarned,
               style: TextStyle(
                 color: isEarned ? Colors.green : Colors.grey,
                 fontWeight: FontWeight.w500,
@@ -176,7 +181,7 @@ class _MedalItem extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(l10n.close),
           ),
         ],
       ),
