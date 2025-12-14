@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../domain/entities/transport_mode.dart';
+import '../../../l10n/app_localizations.dart';
 
 class SpeedIndicator extends StatelessWidget {
   final double speed;
@@ -26,6 +27,7 @@ class SpeedIndicator extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final backgroundColor = theme.colorScheme.surface;
     final dividerColor = theme.dividerColor;
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -45,7 +47,7 @@ class SpeedIndicator extends StatelessWidget {
           _buildItem(
             context: context,
             icon: Icons.speed,
-            label: '速度',
+            label: l10n.speed,
             value: Formatters.formatSpeed(speed),
           ),
           Container(
@@ -56,8 +58,8 @@ class SpeedIndicator extends StatelessWidget {
           _buildItem(
             context: context,
             icon: _getModeIcon(mode),
-            label: '移動手段',
-            value: mode.displayName,
+            label: l10n.transportMode,
+            value: mode.getDisplayName(l10n),
             color: mode.color,
           ),
           Container(
@@ -68,7 +70,7 @@ class SpeedIndicator extends StatelessWidget {
           _buildItem(
             context: context,
             icon: Icons.straighten,
-            label: '距離',
+            label: l10n.distance,
             value: Formatters.formatDistance(distance),
           ),
           Container(
@@ -79,7 +81,7 @@ class SpeedIndicator extends StatelessWidget {
           _buildItem(
             context: context,
             icon: Icons.timer,
-            label: '時間',
+            label: l10n.time,
             value: Formatters.formatDuration(duration),
           ),
           if (dotCount > 0) ...[
@@ -91,7 +93,7 @@ class SpeedIndicator extends StatelessWidget {
             _buildItem(
               context: context,
               icon: Icons.circle,
-              label: 'ドット',
+              label: l10n.dots,
               value: '$dotCount (+$dotScore)',
               color: const Color(0xFFFFD700),
             ),

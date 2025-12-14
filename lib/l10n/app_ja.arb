@@ -1,0 +1,103 @@
+{
+  "@@locale": "ja",
+
+  "appTitle": "MoveTracker",
+
+  "tabMap": "マップ",
+  "tabScore": "スコア",
+  "tabHistory": "履歴",
+
+  "map": "マップ",
+  "score": "スコア",
+  "history": "履歴",
+
+  "locationPermissionRequired": "位置情報の権限が必要です",
+  "requestPermission": "権限をリクエスト",
+  "locationPermissionDenied": "位置情報の権限が拒否されました",
+  "enableLocationInSettings": "設定から位置情報の権限を許可してください",
+
+  "startTracking": "記録開始",
+  "stopTracking": "記録停止",
+  "stopTrackingTitle": "記録を停止しますか？",
+  "stopTrackingMessage": "現在のセッションを終了してスコアを計算します。",
+  "cancel": "キャンセル",
+  "stop": "停止",
+
+  "speed": "速度",
+  "transportMode": "移動手段",
+  "distance": "距離",
+  "time": "時間",
+  "dots": "ドット",
+
+  "stationary": "停止中",
+  "walking": "徒歩",
+  "cycling": "自転車",
+  "vehicle": "車・列車",
+
+  "totalScore": "合計スコア",
+  "dotCollection": "ドット収集",
+  "bonus": "ボーナス",
+
+  "scoreCalculation": "スコアの計算方法",
+  "walkingScore": "徒歩 (3-6 km/h)",
+  "cyclingScore": "自転車 (7-29 km/h)",
+  "vehicleScore": "車・列車 (30+ km/h)",
+  "scoreFormula": "移動スコア = 移動時間(分) × 倍率",
+
+  "dotCollectionBonus": "ドット収集ボーナス",
+  "normalDot": "通常ドット",
+  "silverDot": "シルバードット",
+  "goldDot": "ゴールドドット",
+  "dotCollectionNote": "※ 速度30km/h以下、30m以内で収集可能",
+
+  "error": "エラー: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "reload": "再読み込み",
+
+  "noRecords": "記録がありません",
+  "startTrackingFromMap": "地図画面から記録を開始してください",
+
+  "switchToLightMode": "ライトモードに切替",
+  "switchToDarkMode": "ダークモードに切替",
+  "enableAutoSleep": "自動消灯を有効化",
+  "keepScreenOn": "画面を常時点灯",
+
+  "medals": "メダル",
+  "earned": "獲得済み",
+  "notEarned": "未獲得",
+  "close": "閉じる",
+
+  "medalFirstStep": "ファーストステップ",
+  "medalFirstStepDesc": "累計1kmを達成",
+  "medalWalker": "ウォーカー",
+  "medalWalkerDesc": "累計10kmを達成",
+  "medalMarathoner": "マラソナー",
+  "medalMarathonerDesc": "累計42.195kmを達成",
+  "medal100kmClub": "100kmクラブ",
+  "medal100kmClubDesc": "累計100kmを達成",
+
+  "medal3Days": "3日連続",
+  "medal3DaysDesc": "3日連続で記録",
+  "medalWeeklyChampion": "週間チャンピオン",
+  "medalWeeklyChampionDesc": "7日連続で記録",
+  "medalMonthlyMaster": "月間マスター",
+  "medalMonthlyMasterDesc": "30日連続で記録",
+
+  "medalRookie": "ルーキー",
+  "medalRookieDesc": "累計100ポイントを達成",
+  "medalExpert": "エキスパート",
+  "medalExpertDesc": "累計1,000ポイントを達成",
+  "medalMaster": "マスター",
+  "medalMasterDesc": "累計10,000ポイントを達成",
+
+  "medalEarlyBird": "早起き",
+  "medalEarlyBirdDesc": "朝6時前に記録を開始",
+  "medalNightWalker": "ナイトウォーカー",
+  "medalNightWalkerDesc": "夜10時以降に記録"
+}

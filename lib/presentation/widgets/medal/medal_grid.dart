@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/medal.dart';
+import '../../../l10n/app_localizations.dart';
 
 class MedalGrid extends StatelessWidget {
   final Set<MedalType> earnedMedals;
@@ -11,6 +12,8 @@ class MedalGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Padding(
@@ -22,9 +25,9 @@ class MedalGrid extends StatelessWidget {
               children: [
                 const Icon(Icons.military_tech, color: Colors.amber),
                 const SizedBox(width: 8),
-                const Text(
-                  'メダル',
-                  style: TextStyle(
+                Text(
+                  l10n.medals,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -160,7 +163,9 @@ class _MedalItem extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              isEarned ? '獲得済み' : '未獲得',
+              isEarned
+                  ? AppLocalizations.of(context)!.earned
+                  : AppLocalizations.of(context)!.notEarned,
               style: TextStyle(
                 color: isEarned ? Colors.green : Colors.grey,
                 fontWeight: FontWeight.w500,
@@ -171,7 +176,7 @@ class _MedalItem extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('閉じる'),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
         ],
       ),

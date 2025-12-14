@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/speed_thresholds.dart';
+import '../../l10n/app_localizations.dart';
 
 enum TransportMode {
   stationary,
@@ -20,6 +21,19 @@ extension TransportModeExtension on TransportMode {
         return '自転車';
       case TransportMode.vehicle:
         return '車・列車';
+    }
+  }
+
+  String getDisplayName(AppLocalizations l10n) {
+    switch (this) {
+      case TransportMode.stationary:
+        return l10n.stationary;
+      case TransportMode.walking:
+        return l10n.walking;
+      case TransportMode.cycling:
+        return l10n.cycling;
+      case TransportMode.vehicle:
+        return l10n.vehicle;
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_provider.dart';
 
 /// AppBarのactionsに配置する設定アイコンボタン群
@@ -11,6 +12,7 @@ class AppBarSettingsActions extends ConsumerWidget {
     final settings = ref.watch(settingsProvider);
     final isDarkMode = settings.themeMode == ThemeMode.dark;
     final isWakeLockOn = settings.wakeLockEnabled;
+    final l10n = AppLocalizations.of(context)!;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -18,7 +20,7 @@ class AppBarSettingsActions extends ConsumerWidget {
         // ダークモード切り替え
         IconButton(
           icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
-          tooltip: isDarkMode ? 'ライトモードに切替' : 'ダークモードに切替',
+          tooltip: isDarkMode ? l10n.switchToLightMode : l10n.switchToDarkMode,
           onPressed: () {
             ref.read(settingsProvider.notifier).toggleTheme();
           },
@@ -29,7 +31,7 @@ class AppBarSettingsActions extends ConsumerWidget {
             isWakeLockOn ? Icons.lightbulb : Icons.lightbulb_outline,
             color: isWakeLockOn ? Colors.amber : null,
           ),
-          tooltip: isWakeLockOn ? '自動消灯を有効化' : '画面を常時点灯',
+          tooltip: isWakeLockOn ? l10n.enableAutoSleep : l10n.keepScreenOn,
           onPressed: () {
             ref.read(settingsProvider.notifier).toggleWakeLock();
           },

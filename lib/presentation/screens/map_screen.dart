@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/app_localizations.dart';
 import '../providers/location_provider.dart';
 import '../providers/tracking_provider.dart';
 import '../widgets/map/map_widget.dart';
@@ -15,9 +16,11 @@ class MapScreen extends ConsumerWidget {
     final permissionAsync = ref.watch(locationPermissionProvider);
     final trackingState = ref.watch(trackingProvider);
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('マップ'),
+        title: Text(l10n.map),
         centerTitle: true,
         elevation: 0,
         actions: const [AppBarSettingsActions()],
@@ -30,11 +33,11 @@ class MapScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.location_off, size: 64, color: Colors.grey),
               const SizedBox(height: 16),
-              const Text('位置情報の権限が必要です'),
+              Text(l10n.locationPermissionRequired),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => ref.refresh(locationPermissionProvider),
-                child: const Text('権限をリクエスト'),
+                child: Text(l10n.requestPermission),
               ),
             ],
           ),
@@ -47,11 +50,11 @@ class MapScreen extends ConsumerWidget {
                 children: [
                   const Icon(Icons.location_off, size: 64, color: Colors.grey),
                   const SizedBox(height: 16),
-                  const Text('位置情報の権限が拒否されました'),
+                  Text(l10n.locationPermissionDenied),
                   const SizedBox(height: 8),
-                  const Text(
-                    '設定から位置情報の権限を許可してください',
-                    style: TextStyle(color: Colors.grey),
+                  Text(
+                    l10n.enableLocationInSettings,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ],
               ),

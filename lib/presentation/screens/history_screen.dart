@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../core/utils/formatters.dart';
 import '../../data/models/track_session.dart';
+import '../../l10n/app_localizations.dart';
 import '../providers/score_provider.dart';
 import '../widgets/common/app_status_bar.dart';
 
@@ -12,10 +13,11 @@ class HistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sessionsAsync = ref.watch(sessionHistoryProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('履歴'),
+        title: Text(l10n.history),
         centerTitle: true,
         elevation: 0,
         actions: const [AppBarSettingsActions()],
@@ -28,7 +30,7 @@ class HistoryScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, size: 64, color: Colors.red),
               const SizedBox(height: 16),
-              Text('エラー: $error'),
+              Text(l10n.error(error.toString())),
             ],
           ),
         ),
@@ -38,23 +40,23 @@ class HistoryScreen extends ConsumerWidget {
               .toList();
 
           if (completedSessions.isEmpty) {
-            return const Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.history, size: 64, color: Colors.grey),
-                  SizedBox(height: 16),
+                  const Icon(Icons.history, size: 64, color: Colors.grey),
+                  const SizedBox(height: 16),
                   Text(
-                    '記録がありません',
-                    style: TextStyle(
+                    l10n.noRecords,
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    '地図画面から記録を開始してください',
-                    style: TextStyle(color: Colors.grey),
+                    l10n.startTrackingFromMap,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
@@ -70,7 +72,7 @@ class HistoryScreen extends ConsumerWidget {
               itemCount: completedSessions.length,
               itemBuilder: (context, index) {
                 final session = completedSessions[index];
-                return _buildSessionCard(session);
+                return _buildSessionCard(session, l10n);
               },
             ),
           );
@@ -79,7 +81,7 @@ class HistoryScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSessionCard(TrackSession session) {
+  Widget _buildSessionCard(TrackSession session, AppLocalizations l10n) {
     final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
 
     return Card(
@@ -112,17 +114,17 @@ class HistoryScreen extends ConsumerWidget {
               children: [
                 _buildStat(
                   icon: Icons.straighten,
-                  label: '距離',
+                  label: l10n.distance,
                   value: Formatters.formatDistance(session.totalDistance),
                 ),
                 _buildStat(
                   icon: Icons.timer,
-                  label: '時間',
+                  label: l10n.time,
                   value: Formatters.formatDuration(session.durationSeconds),
                 ),
                 _buildStat(
                   icon: Icons.star,
-                  label: 'スコア',
+                  label: l10n.score,
                   value: Formatters.formatScore(session.totalScore),
                   valueColor: Colors.amber,
                 ),

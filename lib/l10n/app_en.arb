@@ -1,0 +1,96 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "MoveTracker",
+
+  "tabMap": "Map",
+  "tabScore": "Score",
+  "tabHistory": "History",
+
+  "map": "Map",
+  "score": "Score",
+  "history": "History",
+
+  "locationPermissionRequired": "Location permission is required",
+  "requestPermission": "Request Permission",
+  "locationPermissionDenied": "Location permission denied",
+  "enableLocationInSettings": "Please enable location permission in settings",
+
+  "startTracking": "Start",
+  "stopTracking": "Stop",
+  "stopTrackingTitle": "Stop tracking?",
+  "stopTrackingMessage": "This will end the current session and calculate your score.",
+  "cancel": "Cancel",
+  "stop": "Stop",
+
+  "speed": "Speed",
+  "transportMode": "Mode",
+  "distance": "Distance",
+  "time": "Time",
+  "dots": "Dots",
+
+  "stationary": "Stationary",
+  "walking": "Walking",
+  "cycling": "Cycling",
+  "vehicle": "Vehicle",
+
+  "totalScore": "Total Score",
+  "dotCollection": "Dot Collection",
+  "bonus": "Bonus",
+
+  "scoreCalculation": "Score Calculation",
+  "walkingScore": "Walking (3-6 km/h)",
+  "cyclingScore": "Cycling (7-29 km/h)",
+  "vehicleScore": "Vehicle (30+ km/h)",
+  "scoreFormula": "Score = Duration (min) × Multiplier",
+
+  "dotCollectionBonus": "Dot Collection Bonus",
+  "normalDot": "Normal Dot",
+  "silverDot": "Silver Dot",
+  "goldDot": "Gold Dot",
+  "dotCollectionNote": "* Collect at speed ≤30km/h within 30m",
+
+  "error": "Error: {message}",
+  "reload": "Reload",
+
+  "noRecords": "No records",
+  "startTrackingFromMap": "Start tracking from the map screen",
+
+  "switchToLightMode": "Switch to Light Mode",
+  "switchToDarkMode": "Switch to Dark Mode",
+  "enableAutoSleep": "Enable Auto Sleep",
+  "keepScreenOn": "Keep Screen On",
+
+  "medals": "Medals",
+  "earned": "Earned",
+  "notEarned": "Not Earned",
+  "close": "Close",
+
+  "medalFirstStep": "First Step",
+  "medalFirstStepDesc": "Achieve 1km total",
+  "medalWalker": "Walker",
+  "medalWalkerDesc": "Achieve 10km total",
+  "medalMarathoner": "Marathoner",
+  "medalMarathonerDesc": "Achieve 42.195km total",
+  "medal100kmClub": "100km Club",
+  "medal100kmClubDesc": "Achieve 100km total",
+
+  "medal3Days": "3-Day Streak",
+  "medal3DaysDesc": "Record for 3 consecutive days",
+  "medalWeeklyChampion": "Weekly Champion",
+  "medalWeeklyChampionDesc": "Record for 7 consecutive days",
+  "medalMonthlyMaster": "Monthly Master",
+  "medalMonthlyMasterDesc": "Record for 30 consecutive days",
+
+  "medalRookie": "Rookie",
+  "medalRookieDesc": "Achieve 100 points total",
+  "medalExpert": "Expert",
+  "medalExpertDesc": "Achieve 1,000 points total",
+  "medalMaster": "Master",
+  "medalMasterDesc": "Achieve 10,000 points total",
+
+  "medalEarlyBird": "Early Bird",
+  "medalEarlyBirdDesc": "Start recording before 6am",
+  "medalNightWalker": "Night Walker",
+  "medalNightWalkerDesc": "Record after 10pm"
+}

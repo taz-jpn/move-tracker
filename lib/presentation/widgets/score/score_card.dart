@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../domain/entities/transport_mode.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ScoreCard extends StatelessWidget {
   final double totalScore;
@@ -29,6 +30,8 @@ class ScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Card(
       margin: const EdgeInsets.all(16),
       elevation: 4,
@@ -51,9 +54,9 @@ class ScoreCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    '合計スコア',
-                    style: TextStyle(
+                  Text(
+                    l10n.totalScore,
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 14,
                     ),
@@ -85,22 +88,25 @@ class ScoreCard extends StatelessWidget {
               mode: TransportMode.walking,
               score: walkingScore,
               seconds: walkingSeconds,
+              l10n: l10n,
             ),
             const Divider(height: 24),
             _buildModeScore(
               mode: TransportMode.cycling,
               score: cyclingScore,
               seconds: cyclingSeconds,
+              l10n: l10n,
             ),
             const Divider(height: 24),
             _buildModeScore(
               mode: TransportMode.vehicle,
               score: vehicleScore,
               seconds: vehicleSeconds,
+              l10n: l10n,
             ),
             if (totalDotCount > 0) ...[
               const Divider(height: 24),
-              _buildDotScore(),
+              _buildDotScore(l10n),
             ],
           ],
         ),
@@ -112,6 +118,7 @@ class ScoreCard extends StatelessWidget {
     required TransportMode mode,
     required double score,
     required int seconds,
+    required AppLocalizations l10n,
   }) {
     return Row(
       children: [
@@ -134,7 +141,7 @@ class ScoreCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                mode.displayName,
+                mode.getDisplayName(l10n),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -187,7 +194,7 @@ class ScoreCard extends StatelessWidget {
     }
   }
 
-  Widget _buildDotScore() {
+  Widget _buildDotScore(AppLocalizations l10n) {
     const dotColor = Color(0xFFFFD700);
     return Row(
       children: [
@@ -209,15 +216,15 @@ class ScoreCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'ドット収集',
-                style: TextStyle(
+              Text(
+                l10n.dotCollection,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               Text(
-                '$totalDotCount 個',
+                '$totalDotCount',
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 12,
@@ -238,7 +245,7 @@ class ScoreCard extends StatelessWidget {
               ),
             ),
             Text(
-              'ボーナス',
+              l10n.bonus,
               style: TextStyle(
                 color: Colors.grey[500],
                 fontSize: 12,

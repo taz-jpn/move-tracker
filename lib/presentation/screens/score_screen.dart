@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/medal.dart';
+import '../../l10n/app_localizations.dart';
 import '../providers/score_provider.dart';
 import '../widgets/medal/medal_grid.dart';
 import '../widgets/score/score_card.dart';
@@ -13,10 +14,11 @@ class ScoreScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scoreSummaryAsync = ref.watch(scoreSummaryProvider);
     final earnedMedalsAsync = ref.watch(earnedMedalTypesProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('スコア'),
+        title: Text(l10n.score),
         centerTitle: true,
         elevation: 0,
         actions: const [AppBarSettingsActions()],
@@ -29,11 +31,11 @@ class ScoreScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, size: 64, color: Colors.red),
               const SizedBox(height: 16),
-              Text('エラー: $error'),
+              Text(l10n.error(error.toString())),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => ref.refresh(scoreSummaryProvider),
-                child: const Text('再読み込み'),
+                child: Text(l10n.reload),
               ),
             ],
           ),
@@ -64,7 +66,7 @@ class ScoreScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
                   MedalGrid(earnedMedals: earnedMedals),
                   const SizedBox(height: 16),
-                  _buildScoreInfo(),
+                  _buildScoreInfo(l10n),
                   const SizedBox(height: 16),
                 ],
               ),
@@ -75,7 +77,7 @@ class ScoreScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildScoreInfo() {
+  Widget _buildScoreInfo(AppLocalizations l10n) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Padding(
@@ -83,44 +85,44 @@ class ScoreScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'スコアの計算方法',
-              style: TextStyle(
+            Text(
+              l10n.scoreCalculation,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 12),
-            _buildScoreRule('徒歩 (3-6 km/h)', '3.0x', Colors.green),
+            _buildScoreRule(l10n.walkingScore, '3.0x', Colors.green),
             const SizedBox(height: 8),
-            _buildScoreRule('自転車 (7-29 km/h)', '2.0x', Colors.blue),
+            _buildScoreRule(l10n.cyclingScore, '2.0x', Colors.blue),
             const SizedBox(height: 8),
-            _buildScoreRule('車・列車 (30+ km/h)', '1.0x', Colors.orange),
+            _buildScoreRule(l10n.vehicleScore, '1.0x', Colors.orange),
             const SizedBox(height: 12),
             Text(
-              '移動スコア = 移動時間(分) × 倍率',
+              l10n.scoreFormula,
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 12,
               ),
             ),
             const Divider(height: 24),
-            const Text(
-              'ドット収集ボーナス',
-              style: TextStyle(
+            Text(
+              l10n.dotCollectionBonus,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 12),
-            _buildScoreRule('通常ドット', '+10pts', const Color(0xFFFFD700)),
+            _buildScoreRule(l10n.normalDot, '+10pts', const Color(0xFFFFD700)),
             const SizedBox(height: 8),
-            _buildScoreRule('シルバードット', '+30pts', const Color(0xFFC0C0C0)),
+            _buildScoreRule(l10n.silverDot, '+30pts', const Color(0xFFC0C0C0)),
             const SizedBox(height: 8),
-            _buildScoreRule('ゴールドドット', '+100pts', const Color(0xFFFF8C00)),
+            _buildScoreRule(l10n.goldDot, '+100pts', const Color(0xFFFF8C00)),
             const SizedBox(height: 12),
             Text(
-              '※ 速度30km/h以下、30m以内で収集可能',
+              l10n.dotCollectionNote,
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 12,
