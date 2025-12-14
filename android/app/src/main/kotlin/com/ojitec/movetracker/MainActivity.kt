@@ -1,4 +1,4 @@
-package com.example.move_tracker
+package com.ojitec.movetracker
 
 import io.flutter.embedding.android.FlutterActivity
 

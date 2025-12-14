@@ -1,0 +1,7 @@
+# このファイルをコピーして key.properties を作成してください
+# 重要: key.properties は絶対にGitにコミットしないでください
+
+storePassword=YOUR_KEYSTORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=movetracker
+storeFile=/path/to/your/movetracker-release.jks
