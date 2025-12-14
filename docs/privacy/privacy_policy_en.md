@@ -1,6 +1,12 @@
+---
+layout: page
+title: Privacy Policy
+lang: en
+---
+
 # Privacy Policy
 
-Last updated: December 2024
+Last updated: December 2025
 
 ## Introduction
 
