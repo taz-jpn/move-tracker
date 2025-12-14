@@ -164,7 +164,7 @@ class HistoryScreen extends ConsumerWidget {
                   const Icon(Icons.circle, color: Color(0xFFFFD700), size: 16),
                   const SizedBox(width: 4),
                   Text(
-                    '${session.dotCount}個収集 (+${session.dotScore}pts)',
+                    l10n.dotsCollected(session.dotCount, session.dotScore),
                     style: const TextStyle(
                       color: Color(0xFFFFD700),
                       fontSize: 12,

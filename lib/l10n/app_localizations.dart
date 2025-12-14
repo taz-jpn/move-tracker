@@ -547,6 +547,12 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'夜10時以降に記録'**
   String get medalNightWalkerDesc;
+
+  /// No description provided for @dotsCollected.
+  ///
+  /// In ja, this message translates to:
+  /// **'{count}個収集 (+{score}pts)'**
+  String dotsCollected(int count, int score);
 }
 
 class _AppLocalizationsDelegate

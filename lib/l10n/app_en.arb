@@ -92,5 +92,7 @@
   "medalEarlyBird": "Early Bird",
   "medalEarlyBirdDesc": "Start recording before 6am",
   "medalNightWalker": "Night Walker",
-  "medalNightWalkerDesc": "Record after 10pm"
+  "medalNightWalkerDesc": "Record after 10pm",
+
+  "dotsCollected": "{count} collected (+{score}pts)"
 }

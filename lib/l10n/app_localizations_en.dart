@@ -236,4 +236,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get medalNightWalkerDesc => 'Record after 10pm';
+
+  @override
+  String dotsCollected(int count, int score) {
+    return '$count collected (+${score}pts)';
+  }
 }

@@ -99,5 +99,17 @@
   "medalEarlyBird": "早起き",
   "medalEarlyBirdDesc": "朝6時前に記録を開始",
   "medalNightWalker": "ナイトウォーカー",
-  "medalNightWalkerDesc": "夜10時以降に記録"
+  "medalNightWalkerDesc": "夜10時以降に記録",
+
+  "dotsCollected": "{count}個収集 (+{score}pts)",
+  "@dotsCollected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "score": {
+        "type": "int"
+      }
+    }
+  }
 }
