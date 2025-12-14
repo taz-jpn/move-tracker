@@ -55,6 +55,25 @@ dev_dependencies:
   riverpod_generator: ^2.6.3
   freezed: ^2.5.7
   json_serializable: ^6.8.0
+  flutter_launcher_icons: ^0.14.2
+  flutter_native_splash: ^2.4.4
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "resources/icon.png"
+  adaptive_icon_background: "#2196F3"
+  adaptive_icon_foreground: "resources/icon-foreground.png"
+
+flutter_native_splash:
+  color: "#2196F3"
+  image: "resources/splash.png"
+  android: true
+  ios: false
+  android_12:
+    color: "#2196F3"
+    image: "resources/icon.png"
+    icon_background_color: "#2196F3"
 
 flutter:
   uses-material-design: true

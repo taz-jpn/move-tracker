@@ -1,6 +1,9 @@
 # Claude Code local settings
 .claude/settings.local.json
 
+# Node.js (for asset generation scripts)
+node_modules/
+
 # Miscellaneous
 *.class
 *.log
