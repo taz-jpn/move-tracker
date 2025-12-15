@@ -92,28 +92,28 @@ Users can stop tracking at any time.
 
 ## Video Instructions (YouTube URL required)
 
-バックグラウンド位置情報権限の審査のため、機能デモ動画が必要です。
+A demo video is required for background location permission review.
 
-### 動画の内容
+### Video Content
 
-1. アプリを起動してトラッキングを開始
-2. ホームボタンでアプリをバックグラウンドに
-3. 画面オフの状態でしばらく移動（または待機）
-4. アプリに戻って、バックグラウンドでも記録が継続していたことを確認
+1. Launch the app and start tracking
+2. Press home button to send app to background
+3. Move around (or wait) with screen off
+4. Return to app and confirm tracking continued in background
 
-### 作成手順
+### How to Create
 
-1. 実機でスクリーン録画を開始
-2. MoveTrackerを起動 → 記録開始
-3. ホームに戻る（バックグラウンドへ）
-4. 数秒〜数十秒待つ
-5. アプリに戻る → 距離・時間が増えていることを確認
-6. 録画を停止
-7. YouTubeに「限定公開（Unlisted）」でアップロード
-8. そのURLをPlay Consoleに入力
+1. Start screen recording on your device
+2. Open MoveTracker → Start tracking
+3. Go to home screen (send to background)
+4. Wait a few seconds to a minute
+5. Return to app → Confirm distance/time increased
+6. Stop recording
+7. Upload to YouTube as "Unlisted"
+8. Enter the URL in Play Console
 
-### 注意点
+### Notes
 
-- 限定公開（Unlisted）でOK（公開不要）
-- 30秒〜2分程度で十分
-- 実際の位置情報が映る場合はプライバシーに注意
+- Unlisted visibility is fine (no need to make public)
+- 30 seconds to 2 minutes is sufficient
+- Be careful of privacy if actual location is visible
