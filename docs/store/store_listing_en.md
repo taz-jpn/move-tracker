@@ -52,3 +52,38 @@ Health & Fitness or Lifestyle
 
 ## Tags
 movement tracking, GPS, fitness, pedometer, cycling, exercise, gamification
+
+---
+
+## App Purpose (500 characters max)
+
+```
+MoveTracker is a movement tracking and gamification app. It records users' travel activities (walking, cycling, driving) using GPS and converts travel time into scores.
+
+Key features:
+• Real-time tracking of distance, speed, and duration
+• Auto-detect transport mode based on movement speed
+• Scoring system: walking 3x, cycling 2x, driving 1x points
+• Dot collection game on the map for bonus points
+• 13 medal achievements to unlock
+• History management to view past records
+
+All data is stored locally on device. No external server communication.
+```
+
+---
+
+## Location Access (500 characters max)
+
+```
+Movement tracking feature requires background location access.
+
+Users start a tracking session to record their commute, exercise, or travel. The app continuously monitors GPS position to calculate distance traveled, current speed, and detect transport mode (walking/cycling/vehicle).
+
+Background access is essential because:
+• Sessions can last hours during long commutes or exercise
+• Users need tracking to continue when screen is off or app is minimized
+• Accurate distance calculation requires uninterrupted GPS data
+
+Users can stop tracking at any time.
+```
